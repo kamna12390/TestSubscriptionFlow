@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Subscription Background Flow</string>
+    <string name="terms_condition" translatable="false"><![CDATA[Terms & Condition]]></string>
+    <string name="line_one" translatable="false">Recurring billing per Month/Year</string>
+    <string name="line_two" translatable="false">You can cancel subscription anytime</string>
+    <string name="line_three" translatable="false">After the trial period the amount will be changed from your payment method automatically</string>
+    <string name="line_four" translatable="false">Subscription will automatically renew at the end of each term and will be charged to your payment method through Google Play</string>
+    <string name="line_five" translatable="false">You can turn off auto-renew at anytime from Google Play account setting</string>
+    <string name="line_six" translatable="false">Purchase policy can be changed without any prior notice</string>
+    <string name="todo">TODO</string>
+    <string name="choose_one">Choose One</string>
+    <string name="please_turn_on_internet">Please turn on internet.</string>
+    <string name="more_apps">More Apps</string>
+    <string name="new_trending_app">New Trending App</string>
+    <string name="all_apps">All Apps</string>
+    <string name="error">ERROR</string>
+    <string name="server_under_maintenance">Server under maintenance</string>
+    <string name="try_again">Try again</string>
+    <string name="install">Install</string>
+    <string name="ooops">Ooops!</string>
+    <string name="no_internet_connection_found_ncheck_your_connection">No Internet Connection Found\nCheck Your Connection</string>
+</resources>

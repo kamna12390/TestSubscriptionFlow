@@ -1,0 +1,22 @@
+//pluginManagement {
+//    repositories {
+//        google()
+//        mavenCentral()
+//        gradlePluginPortal()
+//    }
+//}
+//dependencyResolutionManagement {
+//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+//    repositories {
+//        google()
+//        mavenCentral()
+//        gradlePluginPortal()
+//    }
+//}
+rootProject.name = "Test Subscription Flow"
+include ':app'
+include ':SubscriptionFlow'
+//include ':myadslibrary'
+project(':SubscriptionFlow').projectDir = new File(settingsDir, 'SubscriptionFlow')
+//project(':myadslibrary').projectDir = new File(settingsDir, 'myadslibrary')
+

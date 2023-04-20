@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#FC7E53</color>
+    <color name="colorPrimaryDark">#FC7E53</color>
+    <color name="colorAccent">#FC7E53</color>
+
+    //Background Subcription
+    <color name="dark_gray">#808080</color>
+    <color name="dark_gray_one">#6E6C6C</color>
+    <color name="light_gray_color">#808080</color>
+    <color name="colorLine">#000000</color>
+    <color name="nav_color">#00FFFFFF</color>
+    <color name="icon_unselected_test">#999999</color>
+    <color name="grey_test">#3C4B5D</color>
+
+
+    <color name="background">#7C000000</color>
+
+    <color name="colorPick">#fc7e53</color>
+    <color name="colorDialogText">#fc7e53</color>
+    <color name="colorDialogText1">#949394</color>
+    <color name="nav_color_one">#E6F7E6DA</color>
+</resources>
