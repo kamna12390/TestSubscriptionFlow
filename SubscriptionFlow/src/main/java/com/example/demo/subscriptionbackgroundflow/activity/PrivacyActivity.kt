@@ -8,7 +8,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.example.demo.subscriptionbackgroundflow.R
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseActivity
@@ -18,10 +17,6 @@ import kotlinx.android.synthetic.main.activity_privacy_policy.*
 class PrivacyActivity : BaseActivity() {
 
     private var mPrivacyPolicyActivity: PrivacyActivity?=null
-
-    private var mWebview: WebView? = null
-    private var ctOffline: ConstraintLayout? = null
-    private var mInternetDisable: ConstraintLayout? = null
     override fun getActivityContext(): AppCompatActivity {
         return this@PrivacyActivity
     }
@@ -30,40 +25,39 @@ class PrivacyActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_privacy_policy)
         mPrivacyPolicyActivity = this@PrivacyActivity
-        mInternetDisable = findViewById<ConstraintLayout>(R.id.ctInternetDisable)
-        mWebview = findViewById(R.id.webView)
-        ctOffline = findViewById(R.id.ctOffline)
         if (!isOnline) {
             ctOffline!!.visibility=View.VISIBLE
-            mWebview!!.visibility=View.GONE
+            webView!!.visibility=View.GONE
         }else{
             ctOffline!!.visibility=View.GONE
-            mWebview!!.visibility=View.VISIBLE
+            webView!!.visibility=View.VISIBLE
         }
-        mInternetDisable?.setOnClickListener {
+        ctInternetDisable?.setOnClickListener {
 
             if (!isOnline) {
                 ctOffline!!.visibility=View.VISIBLE
-                mWebview!!.visibility=View.GONE
+                webView!!.visibility=View.GONE
                 Toast.makeText(
                     this,
                     "Please check internet connection.",
                     Toast.LENGTH_SHORT
                 ).show()
             }else{
-                startWebView("https://agneshpipaliya.blogspot.com/2019/03/image-crop-n-wallpaper-changer.html")
+                startWebView()
                 ctOffline!!.visibility=View.GONE
-                mWebview!!.visibility=View.VISIBLE
+                webView!!.visibility=View.VISIBLE
             }
         }
-        startWebView("https://agneshpipaliya.blogspot.com/2019/03/image-crop-n-wallpaper-changer.html")
+        startWebView()
     }
     @SuppressLint("SetJavaScriptEnabled")
-    private fun startWebView(url: String) {
-        val settings: WebSettings = mWebview!!.settings
+    private fun startWebView() {
+        val url="https://agneshpipaliya.blogspot.com/2019/03/image-crop-n-wallpaper-changer.html"
+        val settings: WebSettings = webView!!.settings
         settings.javaScriptEnabled = true
         pd_mdialog.visibility=View.VISIBLE
-        mWebview?.webViewClient = object : WebViewClient() {
+        webView?.webViewClient = object : WebViewClient() {
+            @Deprecated("Deprecated in Java")
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)
                 return true
@@ -75,6 +69,7 @@ class PrivacyActivity : BaseActivity() {
                 }
             }
 
+            @Deprecated("Deprecated in Java")
             override fun onReceivedError(
                 view: WebView,
                 errorCode: Int,
@@ -83,6 +78,6 @@ class PrivacyActivity : BaseActivity() {
             ) {
             }
         }
-        mWebview?.loadUrl(url)
+        webView?.loadUrl(url)
     }
 }
