@@ -5,7 +5,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.RequiresApi
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.BASIC_SKU
-import com.example.demo.subscriptionbackgroundflow.constants.Constants.IMAGE_CROP
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.Purchase_ID
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.IsOutAppPermission
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.PREMIUM_SIX_SKU
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.PREMIUM_SKU
@@ -19,10 +19,10 @@ public class Config() : Parcelable {
 //        PREMIUM_SIX_SKU = parcel.readString().toString()
 //        BASIC_SKU = parcel.readString().toString()
 //        PREMIUM_SKU = parcel.readString().toString()
-//        IMAGE_CROP = parcel.readString().toString()
-        isoutApp = parcel.readBoolean()
-        IsOutAppPermission = parcel.readBoolean()
-        isAdsShowing = parcel.readBoolean()
+//        Purchase_ID = parcel.readString().toString()
+//        isoutApp = parcel.readBoolean()
+//        IsOutAppPermission = parcel.readBoolean()
+//        isAdsShowing = parcel.readBoolean()
     }
 
     override fun describeContents(): Int {
@@ -34,7 +34,7 @@ public class Config() : Parcelable {
         dest.writeString(PREMIUM_SIX_SKU)
         dest.writeString(BASIC_SKU)
         dest.writeString(PREMIUM_SKU)
-        dest.writeString(IMAGE_CROP)
+        dest.writeString(Purchase_ID)
         dest.writeBoolean(isoutApp!!)
         dest.writeBoolean(IsOutAppPermission)
         dest.writeBoolean(isAdsShowing)
@@ -72,11 +72,11 @@ public class Config() : Parcelable {
         return PREMIUM_SKU
     }
 
-    fun setIMAGE_CROP(string: String){
-//        IMAGE_CROP=string
+    fun setPurchase_ID(string: String){
+//        Purchase_ID=string
     }
-   fun getIMAGE_CROP(): String {
-       return IMAGE_CROP
+   fun getPurchase_ID(): String {
+       return Purchase_ID
    }
 
     fun setIsOutApp(boolean: Boolean){

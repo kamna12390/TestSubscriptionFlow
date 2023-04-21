@@ -13,7 +13,7 @@ object Constants {
 
     var PREMIUM_SKU = ""
 
-    var IMAGE_CROP = ""
+    var Purchase_ID = ""
 
     internal var isDebugMode: Boolean = false
     var isoutApp: Boolean? = false

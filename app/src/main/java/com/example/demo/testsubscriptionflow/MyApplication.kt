@@ -76,7 +76,7 @@ class MyApplication : AppSubscription(), LifecycleObserver,
             .setBASIC_SKU("subscribe_monthly_imagecrop")
             .setPREMIUM_SKU("subscribe_yearly_imagecrop")
             .setPREMIUM_SIX_SKU("subscribe_weekly_imagecrop")
-            .setIMAGE_CROP("goog_IuztdnsvmYVjRXaHMiaDmiyOOmN")
+            .setPurchase_ID("goog_IuztdnsvmYVjRXaHMiaDmiyOOmN")
             .setIsDebugMode(true)
             .setListOfLine(mPremiumLine)
             .setMainScreenListOfLine(mPremiumScreenLine)

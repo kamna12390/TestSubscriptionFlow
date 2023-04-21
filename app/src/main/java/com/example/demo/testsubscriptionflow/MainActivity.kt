@@ -45,7 +45,7 @@ class MainActivity : BaseActivity() {
                 if (!BaseSharedPreferences(this@MainActivity).mIS_SUBSCRIBED!!) {
                     NativeAds().loadNativeAds(
                         this@MainActivity, false,
-                        findViewById(R.id.fl_adplaceholder)
+                        findViewById(R.id.fl_adplaceholder),true
                     ) {
                         if (it == 1) {
                         }

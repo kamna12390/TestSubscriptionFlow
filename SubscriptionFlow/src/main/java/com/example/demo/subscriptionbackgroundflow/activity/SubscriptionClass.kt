@@ -3,16 +3,14 @@ package com.example.demo.subscriptionbackgroundflow.activity
 import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
 import com.example.demo.subscriptionbackgroundflow.constants.Constants
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.BASIC_SKU
-import com.example.demo.subscriptionbackgroundflow.constants.Constants.IMAGE_CROP
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.IsOutAppPermission
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.PREMIUM_SIX_SKU
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.PREMIUM_SKU
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.Purchase_ID
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isDebugMode
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isoutApp
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mAppIcon
@@ -36,12 +34,12 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.Helper
 import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.AppIDs
  object SubscriptionClass {
     public class ActivityBuilder(private val activity: Context) :
-        Builder(activity) {
+        Builder() {
         override fun Subcall(): Builder {
 
             Purchases.debugLogsEnabled = true
             Purchases.configure(
-                PurchasesConfiguration.Builder(activity, config.getIMAGE_CROP()).build()
+                PurchasesConfiguration.Builder(activity, Purchase_ID).build()
             )
             Purchases.sharedInstance.getOfferingsWith({ error ->
                 // An error occurred
@@ -105,10 +103,10 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.App
         }
     }
 
-    abstract class Builder : BaseBuilder {
-        constructor(context: Context?) : super(context) {}
+    abstract class Builder  {
+//        constructor(context: Context?) : super(context) {}
 
-        constructor(fragment: Fragment) : super(fragment.context) {}
+//        constructor(fragment: Fragment) : super(fragment.context) {}
 
         fun setPREMIUM_SIX_SKU(string: String): Builder {
             PREMIUM_SIX_SKU=string
@@ -137,13 +135,13 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.App
             return Constants.PREMIUM_SKU
         }
 
-        fun setIMAGE_CROP(string: String): Builder {
-            IMAGE_CROP=string
+        fun setPurchase_ID(string: String): Builder {
+            Purchase_ID=string
             return this
         }
 
-        fun getIMAGE_CROP(): String {
-            return Constants.IMAGE_CROP
+        fun getPurchase_ID(): String {
+            return Constants.Purchase_ID
         }
 
         //        fun setisSUBSCRIBED(boolean: Boolean):Builder {
@@ -164,7 +162,7 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.App
 //        }
 
         fun setIsOutApp(boolean: Boolean): Builder {
-            config.setIsOutApp(boolean)
+            isoutApp=boolean
             return this
         }
 
@@ -173,7 +171,7 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.App
         }
 
         fun setIsOutAppPermission(boolean: Boolean): Builder {
-            config.setIsOutAppPermission(boolean)
+            IsOutAppPermission=boolean
             return this
         }
 
@@ -264,13 +262,13 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.App
         var config: Config = Config()
 
         init {
-            config.setPREMIUM_SIX_SKU("")
-            config.setBASIC_SKU("")
-            config.setIMAGE_CROP("")
-            config.setPREMIUM_SKU("")
+//            config.setPREMIUM_SIX_SKU("")
+//            config.setBASIC_SKU("")
+//            config.setPurchase_ID("")
+//            config.setPREMIUM_SKU("")
 //            config.setisSUBSCRIBED(false)
-            config.setIsOutApp(false)
-            config.setIsOutAppPermission(false)
+//            config.setIsOutApp(false)
+//            config.setIsOutAppPermission(false)
         }
     }
 }

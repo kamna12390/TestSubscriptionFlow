@@ -3,10 +3,7 @@ package com.example.demo.subscriptionbackgroundflow.AdsClasss
 import android.content.Context
 import android.util.Log
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.widget.AppCompatTextView
 import com.example.demo.subscriptionbackgroundflow.helper.isOnline
 import com.example.demo.subscriptionbackgroundflow.R
@@ -25,7 +22,7 @@ class NativeAds {
     private val TAG = NativeAds::class.java.simpleName
 
     var isSend = false
-    fun loadNativeAds(context: Context, Adx:Boolean?=false, fAdContainer: FrameLayout, listener: (Int) -> Unit) {
+    fun loadNativeAds(context: Context, Adx:Boolean?=false, fAdContainer: FrameLayout,ifNativeNewLayout:Boolean, listener: (Int) -> Unit) {
         var s =if (Adx==true){
 //            "ca-app-pub-3940256099942544/2247696110"
             AppIDs.instnace?.getGoogleAdxNative()
@@ -55,7 +52,11 @@ class NativeAds {
             val builder = AdLoader.Builder(context, s).withNativeAdOptions(nativeAdOptions)
 //            val builder = AdLoader.Builder(context, s)
                 .forNativeAd { nativeAd ->
-                    populateNativeAdView(nativeAd, adView)
+                    if (ifNativeNewLayout){
+                        new_populateNativeAdView(nativeAd, adView)
+                    }else{
+                        old_populateNativeAdView(nativeAd, adView)
+                    }
                     fAdContainer.removeAllViews()
                     fAdContainer.addView(adView)
                 }
@@ -92,7 +93,7 @@ class NativeAds {
                     isSend = false
                     isoutApp=true
                     try {
-                        loadNativeAds(context,false, fAdContainer, listener)
+                        loadNativeAds(context,false, fAdContainer,ifNativeNewLayout, listener)
                     } catch (e: Exception) {
                     }
                 }
@@ -101,7 +102,11 @@ class NativeAds {
             isSend = true
         } else {
             logD(TAG, "MEDIUM_RECTANGLE:Ads Already Load Set Ads ")
-            populateNativeAdView(unNativeAd!!, adView)
+            if (ifNativeNewLayout){
+                new_populateNativeAdView(unNativeAd!!, adView)
+            }else{
+                old_populateNativeAdView(unNativeAd!!, adView)
+            }
             fAdContainer.removeAllViews()
             fAdContainer.addView(adView)
             listener(1)
@@ -109,7 +114,7 @@ class NativeAds {
 
 
     }
-    fun populateNativeAdView(nativeAd: NativeAd, adView: NativeAdView) {
+    fun new_populateNativeAdView(nativeAd: NativeAd, adView: NativeAdView) {
         Log.i(TAG, Throwable().stackTrace[0].methodName)
         // You must call destroy on old ads when you are done with them,
         // otherwise you will have a memory leak.
@@ -206,6 +211,110 @@ class NativeAds {
             (adView.advertiserView as TextView).text = nativeAd.advertiser
             adView.advertiserView!!.visibility = View.VISIBLE
         }
+        adView.setNativeAd(nativeAd)
+
+    }
+    fun old_populateNativeAdView(nativeAd: NativeAd, adView: NativeAdView) {
+        Log.i(TAG, Throwable().stackTrace[0].methodName)
+        // You must call destroy on old ads when you are done with them,
+        // otherwise you will have a memory leak.
+        //  unNativeAd?.destroy()
+        unNativeAd = nativeAd
+
+        // Set the media view.
+        adView.mediaView = adView.findViewById(R.id.ad_media)
+
+        // Set other ad assets.
+        adView.headlineView = adView.findViewById(R.id.ad_headline)
+//        adView.imageView = adView.findViewById(R.id.ad_image)
+        adView.bodyView = adView.findViewById(R.id.ad_body)
+        adView.callToActionView = adView.findViewById(R.id.ad_call_to_action)
+        adView.iconView = adView.findViewById(R.id.ad_app_icon)
+//        adView.priceView = adView.findViewById(R.id.ad_price)
+        adView.starRatingView = adView.findViewById(R.id.ad_stars)
+//        adView.storeView = adView.findViewById(R.id.ad_store)
+        adView.advertiserView = adView.findViewById(R.id.ad_advertiser)
+
+        // The headline and media content are guaranteed to be in every UnifiedNativeAd.
+        (adView.headlineView as TextView).text = nativeAd.headline
+        if (nativeAd.mediaContent != null && adView.mediaView != null) {
+            Log.d(TAG, "populateNativeAdView: ${nativeAd.mediaContent}")
+            adView.mediaView!!.setMediaContent(nativeAd.mediaContent!!)
+        }
+
+        // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
+        // check before trying to display them.
+        if (nativeAd.body == null && adView.bodyView != null) {
+            adView.bodyView!!.visibility = View.GONE
+        } else if (adView.bodyView != null) {
+            adView.bodyView!!.visibility = View.VISIBLE
+            (adView.bodyView as TextView).text = nativeAd.body
+        }
+
+        if (nativeAd.callToAction == null && adView.callToActionView != null) {
+            adView.callToActionView!!.visibility = View.INVISIBLE
+        } else if (adView.callToActionView != null) {
+            adView.callToActionView!!.visibility = View.VISIBLE
+            (adView.callToActionView as Button).text = nativeAd.callToAction
+        }
+
+        if (nativeAd.icon == null && adView.iconView != null) {
+            adView.iconView!!.visibility = View.GONE
+        } else if (adView.iconView != null) {
+            (adView.iconView as ImageView).setImageDrawable(
+                nativeAd.icon!!.drawable
+            )
+            adView.iconView!!.visibility = View.VISIBLE
+        }
+//        if (nativeAd.images == null && adView.imageView != null) {
+//            adView.imageView!!.visibility = View.GONE
+//        } else if (adView.imageView != null) {
+//            (adView.imageView as ImageView).setImageDrawable(
+//                nativeAd.icon!!.drawable
+//            )
+//            adView.imageView!!.visibility = View.VISIBLE
+//        }
+
+//        if (nativeAd.price == null && adView.priceView != null) {
+//            adView.priceView!!.visibility = View.INVISIBLE
+//        } else if (adView.priceView != null) {
+//            adView.priceView!!.visibility = View.VISIBLE
+//            (adView.priceView as TextView).text = nativeAd.price
+//        }
+
+
+//        if (nativeAd.store == null && adView.storeView != null) {
+//            adView.storeView!!.visibility = View.INVISIBLE
+//        } else if (adView.storeView != null) {
+//            adView.storeView!!.visibility = View.VISIBLE
+//            (adView.storeView as TextView).text = nativeAd.store
+//        }
+
+
+        // for custom view
+        if (adView.priceView != null) {
+            adView.priceView!!.visibility = View.GONE
+        }
+        if (adView.storeView != null) {
+            adView.storeView!!.visibility = View.GONE
+        }
+
+        if (nativeAd.starRating == null && adView.starRatingView != null) {
+            adView.starRatingView!!.visibility = View.INVISIBLE
+        } else if (adView.starRatingView != null) {
+            (adView.starRatingView as RatingBar).rating = nativeAd.starRating!!.toFloat()
+            adView.starRatingView!!.visibility = View.VISIBLE
+        }
+
+        if (nativeAd.advertiser == null && adView.advertiserView != null) {
+            adView.advertiserView!!.visibility = View.INVISIBLE
+        } else if (adView.advertiserView != null) {
+            (adView.advertiserView as TextView).text = nativeAd.advertiser
+            adView.advertiserView!!.visibility = View.VISIBLE
+        }
+
+        // This method tells the Google Mobile Ads SDK that you have finished populating your
+        // native ad view with this native ad.
         adView.setNativeAd(nativeAd)
 
     }
