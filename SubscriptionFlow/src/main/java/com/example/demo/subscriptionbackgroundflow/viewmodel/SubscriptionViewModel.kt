@@ -16,7 +16,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModel
 import com.example.demo.subscriptionbackgroundflow.helper.click
-import com.example.demo.subscriptionbackgroundflow.activity.PrivacyPolicyActivity
+import com.example.demo.subscriptionbackgroundflow.activity.PrivacyActivity
 import com.example.demo.subscriptionbackgroundflow.activity.SubscriptionActivity.Companion.plans
 import com.example.demo.subscriptionbackgroundflow.activity.TermsActivity
 import com.example.demo.subscriptionbackgroundflow.constants.Constants
@@ -269,7 +269,7 @@ class SubscriptionViewModel(
                 }
             }
             txtBtnPrivacy.click {
-                mActivity.startActivity(Intent(mActivity,PrivacyPolicyActivity::class.java))
+                mActivity.startActivity(Intent(mActivity,PrivacyActivity::class.java))
             }
             txtBtnCondition.click {
                 mActivity.startActivity(Intent(mActivity,TermsActivity::class.java))

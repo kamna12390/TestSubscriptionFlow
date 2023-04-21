@@ -18,6 +18,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModel
 import com.example.demo.subscriptionbackgroundflow.AdsClasss.InterstitialAds
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
+import com.example.demo.subscriptionbackgroundflow.constants.Constants
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mAppIcon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mAppName
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mBasic_Line_Icon
@@ -73,6 +74,7 @@ class SubscriptionBackgroundActivityViewModel(
         with(binding){
             ivClose.setImageDrawable(mClose_Icon)
             imgAppIcon.setImageDrawable(mAppIcon)
+            mCLUnlockLayout.setBackgroundDrawable(Constants.mPremium_Button_Icon)
             for (i in  0..7){
                 logD("isforrlooopcheck","----$i--${mPremiumLine!!.size}--${idname[i]}--${(mPremiumLine!!.size==(i+1))}")
                 if (mPremiumLine!!.size<=i){

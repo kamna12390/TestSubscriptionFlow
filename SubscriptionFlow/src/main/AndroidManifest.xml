@@ -17,7 +17,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeSubscription" />
         <activity
-            android:name=".activity.PrivacyPolicyActivity"
+            android:name=".activity.PrivacyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeSubscription"/>
         <activity

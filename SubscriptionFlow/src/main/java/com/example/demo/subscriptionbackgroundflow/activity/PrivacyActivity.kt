@@ -15,21 +15,21 @@ import com.example.demo.subscriptionbackgroundflow.basemodule.BaseActivity
 import com.example.demo.subscriptionbackgroundflow.helper.isOnline
 import kotlinx.android.synthetic.main.activity_privacy_policy.*
 
-class PrivacyPolicyActivity : BaseActivity() {
+class PrivacyActivity : BaseActivity() {
 
-    private var mPrivacyPolicyActivity: PrivacyPolicyActivity?=null
+    private var mPrivacyPolicyActivity: PrivacyActivity?=null
 
     private var mWebview: WebView? = null
     private var ctOffline: ConstraintLayout? = null
     private var mInternetDisable: ConstraintLayout? = null
     override fun getActivityContext(): AppCompatActivity {
-        return this@PrivacyPolicyActivity
+        return this@PrivacyActivity
     }
     @SuppressLint("SetJavaScriptEnabled", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_privacy_policy)
-        mPrivacyPolicyActivity = this@PrivacyPolicyActivity
+        mPrivacyPolicyActivity = this@PrivacyActivity
         mInternetDisable = findViewById<ConstraintLayout>(R.id.ctInternetDisable)
         mWebview = findViewById(R.id.webView)
         ctOffline = findViewById(R.id.ctOffline)
