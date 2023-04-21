@@ -26,17 +26,17 @@ class PrivacyActivity : BaseActivity() {
         setContentView(R.layout.activity_privacy_policy)
         mPrivacyPolicyActivity = this@PrivacyActivity
         if (!isOnline) {
-            ctOffline!!.visibility=View.VISIBLE
-            webView!!.visibility=View.GONE
+            ctOffline?.visibility=View.VISIBLE
+            webView?.visibility=View.GONE
         }else{
-            ctOffline!!.visibility=View.GONE
-            webView!!.visibility=View.VISIBLE
+            ctOffline?.visibility=View.GONE
+            webView?.visibility=View.VISIBLE
         }
         ctInternetDisable?.setOnClickListener {
 
             if (!isOnline) {
-                ctOffline!!.visibility=View.VISIBLE
-                webView!!.visibility=View.GONE
+                ctOffline?.visibility=View.VISIBLE
+                webView?.visibility=View.GONE
                 Toast.makeText(
                     this,
                     "Please check internet connection.",
@@ -44,8 +44,8 @@ class PrivacyActivity : BaseActivity() {
                 ).show()
             }else{
                 startWebView()
-                ctOffline!!.visibility=View.GONE
-                webView!!.visibility=View.VISIBLE
+                ctOffline?.visibility=View.GONE
+                webView?.visibility=View.VISIBLE
             }
         }
         startWebView()
@@ -53,7 +53,7 @@ class PrivacyActivity : BaseActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     private fun startWebView() {
         val url="https://agneshpipaliya.blogspot.com/2019/03/image-crop-n-wallpaper-changer.html"
-        val settings: WebSettings = webView!!.settings
+        val settings: WebSettings = webView.settings
         settings.javaScriptEnabled = true
         pd_mdialog.visibility=View.VISIBLE
         webView?.webViewClient = object : WebViewClient() {
