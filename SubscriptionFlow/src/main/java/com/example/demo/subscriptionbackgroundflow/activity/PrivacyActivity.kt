@@ -55,7 +55,7 @@ class PrivacyActivity : BaseActivity() {
         val url="https://agneshpipaliya.blogspot.com/2019/03/image-crop-n-wallpaper-changer.html"
         val settings: WebSettings = webView.settings
         settings.javaScriptEnabled = true
-        pd_mdialog.visibility=View.VISIBLE
+        pd_mdialog?.visibility=View.VISIBLE
         webView?.webViewClient = object : WebViewClient() {
             @Deprecated("Deprecated in Java")
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
@@ -65,7 +65,7 @@ class PrivacyActivity : BaseActivity() {
 
             override fun onPageFinished(view: WebView, url: String) {
                 if (pd_mdialog.isVisible) {
-                    pd_mdialog.visibility=View.GONE
+                    pd_mdialog?.visibility=View.GONE
                 }
             }
 
