@@ -30,7 +30,8 @@ object Constants {
     var mAppIcon:Drawable?=null
     var mAppName:String?=null
     var currentActivity: Activity? = null
-    var mNativeAdsLayout: Int? = null
+    var mNew_NativeAdsLayout: Int? = null
+    var mOld_NativeAdsLayout: Int? = null
      var mPremiumLine: ArrayList<LineWithIconModel>?=null
      var mPremiumScreenLine: ArrayList<LineWithIconModel>?=null
     var mHEIGHT:Int?=0

@@ -90,7 +90,8 @@ class MyApplication : AppSubscription(), LifecycleObserver,
             .setPremium_CardSelected_Icon(this.resources.getDrawable(R.drawable.ic_pro_selected))
             .setPremium_Cardunselected_Icon(this.resources.getDrawable(R.drawable.ic_pro_selection))
             .setPremium_Button_Icon(this.resources.getDrawable(R.drawable.bg_sub_btn_))
-            .setNativeAdsLayout(R.layout.layout_native_ads)
+            .setNew_NativeAdsLayout(R.layout.layout_native_ads)
+            .setOld_NativeAdsLayout(R.layout.layout_native_ads_old)
             .Subcall()
         appOpenManager = AppOpenManager(this)
 

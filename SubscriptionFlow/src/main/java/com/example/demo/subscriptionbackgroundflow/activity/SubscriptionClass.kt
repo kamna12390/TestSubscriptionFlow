@@ -17,7 +17,8 @@ import com.example.demo.subscriptionbackgroundflow.constants.Constants.mAppIcon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mAppName
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mBasic_Line_Icon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mClose_Icon
-import com.example.demo.subscriptionbackgroundflow.constants.Constants.mNativeAdsLayout
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.mNew_NativeAdsLayout
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.mOld_NativeAdsLayout
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremiumLine
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremiumScreenLine
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremium_Button_Icon
@@ -26,7 +27,6 @@ import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremium_
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremium_True_Icon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.packagerenlist
 import com.example.demo.subscriptionbackgroundflow.helper.logD
-import com.example.demo.subscriptionbackgroundflow.viewmodel.Config
 import com.revenuecat.purchases.Purchases
 import com.revenuecat.purchases.PurchasesConfiguration
 import com.revenuecat.purchases.getOfferingsWith
@@ -104,10 +104,6 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.App
     }
 
     abstract class Builder  {
-//        constructor(context: Context?) : super(context) {}
-
-//        constructor(fragment: Fragment) : super(fragment.context) {}
-
         fun setPREMIUM_SIX_SKU(string: String): Builder {
             PREMIUM_SIX_SKU=string
             return this
@@ -152,15 +148,6 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.App
             return BaseSharedPreferences(context!!).mIS_SUBSCRIBED!!
         }
 
-//        fun setisoutApp(boolean: Boolean): Builder {
-//            config.setisoutApp(boolean)
-//            return this
-//        }
-//
-//        fun getisoutApp(): Boolean? {
-//            return isoutApp
-//        }
-
         fun setIsOutApp(boolean: Boolean): Builder {
             isoutApp=boolean
             return this
@@ -188,11 +175,6 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.App
             isDebugMode = boolean
             return this
         }
-
-//        fun setGreen_True_Icon(drawable: Drawable): Builder {
-//            mGreen_True_Icon = drawable
-//            return this
-//        }
 
         fun setPremium_True_Icon(drawable: Drawable): Builder {
             mPremium_True_Icon = drawable
@@ -249,26 +231,16 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.App
             return this
         }
 
-        fun setNativeAdsLayout(int: Int): Builder {
-            mNativeAdsLayout = int
+        fun setNew_NativeAdsLayout(int: Int): Builder {
+            mNew_NativeAdsLayout = int
+            return this
+        }
+        fun setOld_NativeAdsLayout(int: Int): Builder {
+            mOld_NativeAdsLayout = int
             return this
         }
 
         abstract fun Subcall(): Builder
         abstract fun Adsliber(int: Int,life: LifecycleOwner): Builder
-    }
-
-    abstract class BaseBuilder(context: Context?) {
-        var config: Config = Config()
-
-        init {
-//            config.setPREMIUM_SIX_SKU("")
-//            config.setBASIC_SKU("")
-//            config.setPurchase_ID("")
-//            config.setPREMIUM_SKU("")
-//            config.setisSUBSCRIBED(false)
-//            config.setIsOutApp(false)
-//            config.setIsOutAppPermission(false)
-        }
     }
 }

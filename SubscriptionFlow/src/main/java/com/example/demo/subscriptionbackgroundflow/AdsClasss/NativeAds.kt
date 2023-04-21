@@ -8,7 +8,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.example.demo.subscriptionbackgroundflow.helper.isOnline
 import com.example.demo.subscriptionbackgroundflow.R
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isoutApp
-import com.example.demo.subscriptionbackgroundflow.constants.Constants.mNativeAdsLayout
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.mNew_NativeAdsLayout
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.mOld_NativeAdsLayout
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.unNativeAd
 import com.example.demo.subscriptionbackgroundflow.helper.logD
 import com.google.android.gms.ads.*
@@ -40,7 +41,12 @@ class NativeAds {
 //        video
 //        s = "ca-app-pub-3940256099942544/1044960115"
 //        val adView = context.layoutInflater.inflate(R.layout.layout_native_ads_test, null) as NativeAdView
-        val adView = context.layoutInflater.inflate(mNativeAdsLayout!!, null) as NativeAdView
+        val adView=if(ifNativeNewLayout)
+             context.layoutInflater.inflate(mNew_NativeAdsLayout!!, null) as NativeAdView
+        else
+             context.layoutInflater.inflate(mOld_NativeAdsLayout!!, null) as NativeAdView
+
+
         if (!context.isOnline){
             unNativeAd = null
             isSend = false
