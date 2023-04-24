@@ -17,6 +17,7 @@ import com.example.demo.subscriptionbackgroundflow.constants.Constants.mAppIcon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mAppName
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mBasic_Line_Icon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mClose_Icon
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.mIsRevenuCat
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mNew_NativeAdsLayout
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mOld_NativeAdsLayout
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremiumLine
@@ -237,6 +238,9 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.App
         }
         fun setOld_NativeAdsLayout(int: Int): Builder {
             mOld_NativeAdsLayout = int
+            return this
+        }fun setIsRevenuCat(boolean: Boolean): Builder {
+            mIsRevenuCat = boolean
             return this
         }
 

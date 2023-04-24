@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
@@ -16,12 +17,15 @@ import com.example.demo.subscriptionbackgroundflow.AdsClasss.InterstitialAds
 import com.example.demo.subscriptionbackgroundflow.R
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
 import com.example.demo.subscriptionbackgroundflow.constants.Constants
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.PREMIUM_SIX_SKU
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mHEIGHT
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.mIsRevenuCat
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mWIDTH
 import com.example.demo.subscriptionbackgroundflow.databinding.ActivitySubscriptionBackgroundBinding
 import com.example.demo.subscriptionbackgroundflow.helper.*
 import com.example.demo.subscriptionbackgroundflow.ui.BaseSubscriptionActivity
 import com.example.demo.subscriptionbackgroundflow.viewmodel.SubscriptionBackgroundActivityViewModel
+import com.example.demo.subscriptionbackgroundflow.viewmodel.SubscriptionViewModel
 import org.jetbrains.anko.displayMetrics
 
 class SubscriptionBackgroundActivity : BaseSubscriptionActivity() {
@@ -29,18 +33,40 @@ class SubscriptionBackgroundActivity : BaseSubscriptionActivity() {
 
     //    var mProgressBar: ProgressDialog? = null
     var mNextIntent: String? = null
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideSystemUI()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_subscription_background)
-        binding.viewmodel = SubscriptionBackgroundActivityViewModel(binding, this)
+        binding.viewmodel = SubscriptionBackgroundActivityViewModel(binding, this,liveDataPeriod,liveDataPrice,object :SubscriptionBackgroundActivityViewModel.IsSelecterdPlan{
+            override fun monMonthPlan() {
+                onMonthPlan()
+            }
+
+            override fun monYearPlan() {
+                onYearPlan()
+            }
+
+            override fun monBackPress() {
+            onBackPressed()
+            }
+
+        })
         mNextIntent = intent.getStringExtra("mNextActivityIntent")
         if (BaseSharedPreferences(this).mOpenAdsload!!) {
             AppOpenManager(applicationContext)
         }
+        setUI()
+    }
 
 
-        initListener()
+
+    override fun onPurchases(orderId: String, str: String) {
+        BaseSharedPreferences(this).mIS_SUBSCRIBED = true
+    }
+    @SuppressLint("SetTextI18n")
+
+    fun setUI(){
         mHEIGHT = (displayMetrics.heightPixels / resources.displayMetrics.density).toInt()
         mWIDTH = (displayMetrics.widthPixels / resources.displayMetrics.density).toInt()
         logD(
@@ -72,15 +98,7 @@ class SubscriptionBackgroundActivity : BaseSubscriptionActivity() {
         }
         binding.ivClose.layoutParams = lp
 //        logD("IsCheckStatusBar", "IsStatusBarHeight->${getStatusBarHeight()}")
-
     }
-
-
-
-    override fun onPurchases(orderId: String, str: String) {
-        BaseSharedPreferences(this).mIS_SUBSCRIBED = true
-    }
-
     @SuppressLint("NewApi")
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun hideSystemUI() {
@@ -112,34 +130,7 @@ class SubscriptionBackgroundActivity : BaseSubscriptionActivity() {
 
     }
 
-    fun initListener() {
-        binding.ivClose.click {
 
-//            if (InterstitialAds.mInterstitialAd != null) {
-//                mProgressBar!!.show()
-//            }
-
-            onBackPressed()
-        }
-        binding.mCLUnlockLayout.click {
-            if (isOnline) {
-                onMonthPlan()
-            } else {
-                showToast("Please check internet connection.", android.widget.Toast.LENGTH_SHORT)
-            }
-        }
-        binding.txtTryLimited.click {
-            if (intent.getStringExtra("AppOpen").equals("SettingsActivity")) {
-                val mintent = Intent(this, SubscriptionActivity::class.java)
-                mintent.putExtra("AppOpen", intent.getStringExtra("AppOpen"))
-                startActivity(mintent)
-            } else if (intent.getStringExtra("AppOpen").equals("BaseActivity")) {
-                onBackPressed()
-            } else if (intent.getStringExtra("AppOpen").equals("SplashScreen")) {
-                onBackPressed()
-            }
-        }
-    }
 
     override fun onBackPressed() {
 

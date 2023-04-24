@@ -1,8 +1,6 @@
 package com.example.demo.subscriptionbackgroundflow.activity
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -19,29 +17,50 @@ import com.example.demo.subscriptionbackgroundflow.helper.*
 import com.example.demo.subscriptionbackgroundflow.ui.BaseSubscriptionActivity
 import com.example.demo.subscriptionbackgroundflow.viewmodel.SubscriptionViewModel
 
-class SubscriptionActivity : BaseSubscriptionActivity(){
-    lateinit var binding:ActivitySubscriptionBinding
-    companion object{
-         var plans = Constants.PREMIUM_SKU
+class SubscriptionActivity : BaseSubscriptionActivity() {
+    lateinit var binding: ActivitySubscriptionBinding
+
+    companion object {
+        var plans = Constants.PREMIUM_SKU
     }
+
+    @SuppressLint("SetTextI18n", "NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideSystemUI()
 
         logD("DeviceHeightAndWeight", "height==${mHEIGHT}===weight==${mWIDTH}")
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_subscription)
-        binding.viewmodel= SubscriptionViewModel(binding,this)
-        if (getNavigationBarHeight()>=20){
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_subscription)
+        binding.viewmodel = SubscriptionViewModel(binding, this,liveDataPeriod,liveDataPrice,object :SubscriptionViewModel.IsSelecterdPlan{
+            override fun monMonthPlan() {
+                onMonthPlan()
+            }
+
+            override fun monYearPlan() {
+                onYearPlan()
+            }
+
+            override fun monBackPress() {
+                onBackPressed()
+            }
+
+        })
+        setUI()
+    }
+
+
+    fun setUI() {
+        if (getNavigationBarHeight() >= 20) {
             val newLayoutParams: ConstraintLayout.LayoutParams =
                 binding.mCLPriceLayer.layoutParams as ConstraintLayout.LayoutParams
-            if (mHEIGHT==592 && mWIDTH==360){
-                newLayoutParams.bottomMargin = (getNavigationBarHeight()+83)
-            }else{
-                newLayoutParams.bottomMargin = (getNavigationBarHeight()+37)
+            if (mHEIGHT == 592 && mWIDTH == 360) {
+                newLayoutParams.bottomMargin = (getNavigationBarHeight() + 83)
+            } else {
+                newLayoutParams.bottomMargin = (getNavigationBarHeight() + 37)
             }
 
             binding.mCLPriceLayer.layoutParams = newLayoutParams
-        }else{
+        } else {
             val newLayoutParams: ConstraintLayout.LayoutParams =
                 binding.mCLPriceLayer.layoutParams as ConstraintLayout.LayoutParams
             newLayoutParams.bottomMargin = (getNavigationBarHeight())
@@ -49,45 +68,24 @@ class SubscriptionActivity : BaseSubscriptionActivity(){
         }
         val lp: ConstraintLayout.LayoutParams =
             binding.imgClose.layoutParams as ConstraintLayout.LayoutParams
-        if (mHEIGHT==592 && mWIDTH==360) {
+        if (mHEIGHT == 592 && mWIDTH == 360) {
             lp.setMargins(0, (getStatusBarHeight() + 31), 0, 0)
-        }else{
+        } else {
             lp.setMargins(0, (getStatusBarHeight() + 25), 0, 0)
         }
         binding.imgClose.layoutParams = lp
         logD("IsCheckStatusBar", "IsStatusBarHeight->${getStatusBarHeight()}")
-        initListener()
     }
+
     override fun onPurchases(orderId: String, str: String) {
-        BaseSharedPreferences(this).mIS_SUBSCRIBED=true
-    }
-
-    private fun initListener(){
-        binding.imgClose.click {
-            onBackPressed()
-        }
-        binding.mCLUnlockLayout.setOnClickListener {
-            if (isOnline) {
-                when (plans) {
-                    Constants.BASIC_SKU -> {
-                        onMonthPlan()
-                    }
-                    Constants.PREMIUM_SKU -> {
-                        onYearPlan()
-                    }
-
-                }
-            } else {
-                showToast("Please check internet connection.", android.widget.Toast.LENGTH_SHORT)
-            }
-
-        }
+        BaseSharedPreferences(this).mIS_SUBSCRIBED = true
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
     }
+
     @SuppressLint("NewApi")
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun hideSystemUI() {

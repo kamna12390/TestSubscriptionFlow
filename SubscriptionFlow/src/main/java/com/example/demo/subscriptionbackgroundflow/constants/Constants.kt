@@ -32,6 +32,7 @@ object Constants {
     var currentActivity: Activity? = null
     var mNew_NativeAdsLayout: Int? = null
     var mOld_NativeAdsLayout: Int? = null
+    var mIsRevenuCat: Boolean? = false
      var mPremiumLine: ArrayList<LineWithIconModel>?=null
      var mPremiumScreenLine: ArrayList<LineWithIconModel>?=null
     var mHEIGHT:Int?=0

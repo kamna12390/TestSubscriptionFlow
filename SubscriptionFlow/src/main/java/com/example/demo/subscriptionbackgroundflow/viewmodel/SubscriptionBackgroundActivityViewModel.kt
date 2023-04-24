@@ -1,6 +1,8 @@
 package com.example.demo.subscriptionbackgroundflow.viewmodel
 
 //import com.example.demo.subscriptionbackgroundflow.MyApplication.Companion.packagerenlist
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Build
 import android.os.Handler
@@ -15,60 +17,135 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.updateLayoutParams
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.demo.subscriptionbackgroundflow.AdsClasss.InterstitialAds
+import com.example.demo.subscriptionbackgroundflow.activity.SubscriptionActivity
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
 import com.example.demo.subscriptionbackgroundflow.constants.Constants
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mAppIcon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mAppName
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mBasic_Line_Icon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mClose_Icon
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.mIsRevenuCat
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremiumLine
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremium_Button_Icon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremium_True_Icon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.packagerenlist
 import com.example.demo.subscriptionbackgroundflow.databinding.ActivitySubscriptionBackgroundBinding
-import com.example.demo.subscriptionbackgroundflow.helper.logD
+import com.example.demo.subscriptionbackgroundflow.helper.*
 import kotlin.math.roundToInt
 
 class SubscriptionBackgroundActivityViewModel(
     var binding: ActivitySubscriptionBackgroundBinding,
-   var  mActivity: AppCompatActivity
+    var  mActivity: AppCompatActivity,
+    var liveDataPeriod: MutableLiveData<HashMap<String, String>>,
+    var liveDataPrice: MutableLiveData<HashMap<String, String>>,
+    var isSelecterdPlan: IsSelecterdPlan
 ) : ViewModel() {
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.P)
     fun isPiePlus() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
     val idname = arrayOf("_one", "_two", "_three","_four","_five","_six","_seven","_eight")
+    interface IsSelecterdPlan {
+        fun monMonthPlan()
+        fun monYearPlan()
+        fun monBackPress()
+    }
     init {
         onMain()
     }
     fun onMain(){
-
         InterstitialAds().loadInterstitialAd(mActivity)
-        with(binding) {
-            if (mActivity.intent.getStringExtra("AppOpen").equals("SettingsActivity")) {
-                if (BaseSharedPreferences(mActivity).mIS_SUBSCRIBED!!) {
-                    mActivity.onBackPressed()
-//                    super.onBackPressed()
-                }
-            }
-            if (mActivity.intent.getStringExtra("AppOpen").equals("SplashScreen")) {
-                if (BaseSharedPreferences(mActivity).mSecondTime!!) {
-                    txtTryLimited.visibility = View.GONE
+        setUI()
+        setSubScriptionUI()
+        setLineView()
+        initListener()
+    }
+    fun initListener() {
+        binding.ivClose.click {
 
-                } else {
-                    txtTryLimited.visibility = View.VISIBLE
-                    txtTryLimited.text = "OR TRY LIMITED VERSION"
-                }
-            } else if (mActivity.intent.getStringExtra("AppOpen").equals("SettingsActivity")) {
-                txtTryLimited.visibility = View.VISIBLE
-                txtTryLimited.text = "Click here for more plans"
-            } else if (mActivity.intent.getStringExtra("AppOpen").equals("BaseActivity")) {
-                txtTryLimited.visibility = View.GONE
+            isSelecterdPlan.monBackPress()
+        }
+        binding.mCLUnlockLayout.click {
+            if (mActivity.isOnline) {
+                isSelecterdPlan.monMonthPlan()
+
+            } else {
+                mActivity.showToast("Please check internet connection.", android.widget.Toast.LENGTH_SHORT)
             }
         }
+        binding.txtTryLimited.click {
+            if (mActivity.intent.getStringExtra("AppOpen").equals("SettingsActivity")) {
+                val mintent = Intent(mActivity, SubscriptionActivity::class.java)
+                mintent.putExtra("AppOpen", mActivity.intent.getStringExtra("AppOpen"))
+                mActivity.startActivity(mintent)
+            } else if (mActivity.intent.getStringExtra("AppOpen").equals("BaseActivity")) {
+                isSelecterdPlan.monBackPress()
+            } else if (mActivity.intent.getStringExtra("AppOpen").equals("SplashScreen")) {
+                isSelecterdPlan.monBackPress()
+            }
+        }
+    }
+    @SuppressLint("SetTextI18n")
+    fun setSubScriptionUI(){
+        with(binding){
+            if (isPiePlus()) {
+                mActivity.setCloseIconPosition(
+                    fParentLayout = mainleyouut2, // Parent Constraint Layout
+                    fCloseIcon = ivClose, // Image View
+                    fIconPosition = IconPosition.RIGHT // IconPosition Left or Right
+                )
+            }
+            txtAppname.text=mAppName
 
-        setUI()
-        setLineView()
+            if (mIsRevenuCat!!){
+                Handler().postDelayed(Runnable {
+                    packagerenlist?.get(0)?.freeTrialPeriod?.let { it1 ->
+                        val size = it1.length
+                        val period = it1.substring(1, size - 1)
+                        val str = it1.substring(size - 1, size)
+                        Log.d("TAG", "getSubTrial: ${size} $period - $str")
+                        textPrice.text = "${packagerenlist?.get(0)?.price}/Month after ${
+                            packagerenlist?.get(0)?.freeTrialPeriod?.let { it1 ->
+                                getSubTrial(it1)
+                            }
+                        } of FREE trial."
+                    }
+                }, 200)
+            }else{
+                liveDataPeriod.observe(mActivity) { trial ->
+                    liveDataPrice.observe(mActivity) { price ->
+                        trial[Constants.PREMIUM_SIX_SKU]?.let {
+                            if (it == "") {
+                                textPrice.text = "${
+                                    price[Constants.PREMIUM_SIX_SKU]?.replace(
+                                        ".00",
+                                        ""
+                                    )
+                                }/Month."
+                                txtUnlockKriadl.text = "Continue"
+                            } else {
+                                textPrice.text =
+                                    "${trial[Constants.PREMIUM_SIX_SKU]?.let { it1 ->
+                                        com.example.demo.subscriptionbackgroundflow.helper.getSubTrial(
+                                            it1
+                                        )
+                                    }} at FREE trial, then ${
+                                        price[Constants.PREMIUM_SIX_SKU]?.replace(
+                                            ".00",
+                                            ""
+                                        )
+                                    }/Month."
+                                txtUnlockKriadl.text = "start free trial"
+                            }
+                        }
+
+
+                    }
+                }
+            }
+
+        }
     }
     fun setLineView(){
         with(binding){
@@ -132,123 +209,28 @@ class SubscriptionBackgroundActivityViewModel(
     }
     fun setUI(){
         with(binding){
-            if (isPiePlus()) {
-                setCloseIconPosition(
-                    fParentLayout = mainleyouut2, // Parent Constraint Layout
-                    fCloseIcon = ivClose, // Image View
-                    fIconPosition = IconPosition.RIGHT // IconPosition Left or Right
-                )
-            }
-
-            txtAppname.text=mAppName
-            Handler().postDelayed(Runnable {
-                packagerenlist?.get(0)?.freeTrialPeriod?.let { it1 ->
-                    val size = it1.length
-                    val period = it1.substring(1, size - 1)
-                    val str = it1.substring(size - 1, size)
-                    Log.d("TAG", "getSubTrial: ${size} $period - $str")
-                    textPrice.text = "${packagerenlist?.get(0)?.price}/Month after ${
-                        packagerenlist?.get(0)?.freeTrialPeriod?.let { it1 ->
-                            getSubTrial(it1)
-                        }
-                    } of FREE trial."
+            if (mActivity.intent.getStringExtra("AppOpen").equals("SettingsActivity")) {
+                if (BaseSharedPreferences(mActivity).mIS_SUBSCRIBED!!) {
+                    mActivity.onBackPressed()
+//                    super.onBackPressed()
                 }
-            }, 200)
+            }
+            if (mActivity.intent.getStringExtra("AppOpen").equals("SplashScreen")) {
+                if (BaseSharedPreferences(mActivity).mSecondTime!!) {
+                    txtTryLimited.visibility = View.GONE
+
+                } else {
+                    txtTryLimited.visibility = View.VISIBLE
+                    txtTryLimited.text = "OR TRY LIMITED VERSION"
+                }
+            } else if (mActivity.intent.getStringExtra("AppOpen").equals("SettingsActivity")) {
+                txtTryLimited.visibility = View.VISIBLE
+                txtTryLimited.text = "Click here for more plans"
+            } else if (mActivity.intent.getStringExtra("AppOpen").equals("BaseActivity")) {
+                txtTryLimited.visibility = View.GONE
+            }
         }
     }
 
-    private fun View.onGlobalLayout(callback: () -> Unit) {
-        viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                viewTreeObserver.removeOnGlobalLayoutListener(this)
-                callback()
-            }
-        })
-    }
-    enum class IconPosition {
-        LEFT, RIGHT
-    }
-    @RequiresApi(Build.VERSION_CODES.P)
-    fun setCloseIconPosition(fParentLayout: ConstraintLayout, fCloseIcon: ImageView, fIconPosition: IconPosition) {
-        fParentLayout.setOnApplyWindowInsetsListener { _, insets ->
-            insets.displayCutout?.let { cutout ->
-                val cutOutRect: Rect = cutout.boundingRects[0]
-//                logE("setCloseIconPosition", "cutOutRect::->$cutOutRect")
-                fCloseIcon.let { closeIcon ->
-                    closeIcon.onGlobalLayout {
-                        val closeIconRect = Rect()
-                        closeIcon.getGlobalVisibleRect(closeIconRect)
-//                        logE("setCloseIconPosition", "closeIconRect::->$closeIconRect")
-//                        logE("setCloseIconPosition", "----------------------------------------")
-//                        logE("setCloseIconPosition", "----------------------------------------")
-//                        logE("setCloseIconPosition", "cutOut contains close::->${cutOutRect.contains(closeIconRect)}")
-//                        logE("setCloseIconPosition", "cutOut contains close right::->${cutOutRect.contains(closeIconRect.right, closeIconRect.top)}")
-//                        logE("setCloseIconPosition", "cutOut contains close left::->${cutOutRect.contains(closeIconRect.left, closeIconRect.bottom)}")
-//                        logE("setCloseIconPosition", "cutOut contains close top::->${cutOutRect.contains(closeIconRect.left, closeIconRect.top)}")
-//                        logE("setCloseIconPosition", "cutOut contains close bottom::->${cutOutRect.contains(closeIconRect.right, closeIconRect.bottom)}")
-//                        logE("setCloseIconPosition", "----------------------------------------")
-//                        logE("setCloseIconPosition", "----------------------------------------")
-//                        logE("setCloseIconPosition", "close contains cutOut::->${closeIconRect.contains(cutOutRect)}")
-//                        logE("setCloseIconPosition", "close contains cutOut right::->${closeIconRect.contains(cutOutRect.right, cutOutRect.top)}")
-//                        logE("setCloseIconPosition", "close contains cutOut left::->${closeIconRect.contains(cutOutRect.left, cutOutRect.bottom)}")
-//                        logE("setCloseIconPosition", "close contains cutOut top::->${closeIconRect.contains(cutOutRect.left, cutOutRect.top)}")
-//                        logE("setCloseIconPosition", "close contains cutOut bottom::->${closeIconRect.contains(cutOutRect.right, cutOutRect.bottom)}")
-                        if (closeIconRect.contains(cutOutRect)
-                            || closeIconRect.contains(cutOutRect.right, cutOutRect.top)
-                            || closeIconRect.contains(cutOutRect.left, cutOutRect.bottom)
-                            || closeIconRect.contains(cutOutRect.left, cutOutRect.top)
-                            || closeIconRect.contains(cutOutRect.right, cutOutRect.bottom)
-                            || cutOutRect.contains(closeIconRect)
-                            || cutOutRect.contains(closeIconRect.right, closeIconRect.top)
-                            || cutOutRect.contains(closeIconRect.left, closeIconRect.bottom)
-                            || cutOutRect.contains(closeIconRect.left, closeIconRect.top)
-                            || cutOutRect.contains(closeIconRect.right, closeIconRect.bottom)
-                        ) {
-                            closeIcon.updateLayoutParams<ConstraintLayout.LayoutParams> {
-                                when (fIconPosition) {
-                                    IconPosition.LEFT -> {
-                                        startToStart = ConstraintSet.PARENT_ID
-                                        endToEnd = ConstraintSet.UNSET
-                                    }
-                                    IconPosition.RIGHT -> {
-                                        endToEnd = ConstraintSet.PARENT_ID
-                                        startToStart = ConstraintSet.UNSET
-                                        marginEnd = mActivity.resources.getDimension(com.intuit.sdp.R.dimen._10sdp).roundToInt()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return@setOnApplyWindowInsetsListener insets
-        }
-    }
-    private fun getSubTrial(trial: String): String? {
-        return try {
-            val size = trial.length
-            val period = trial.substring(1, size - 1)
-            val str = trial.substring(size - 1, size)
-            Log.d("TAG", "getSubTrial: ${size} $period - $str")
-            when (str) {
-                "D" -> "$period days"
-                "W" -> {
-                    try {
-                        if (period.toInt() == 1) "7 days" else "$period Week"
-                    } catch (e: Exception) {
-                        "$period Week"
-                    }
-                }
-                "M" -> "$period Months"
-                "Y" -> "${period.toInt() * 12} Months"
-                else -> "$period Months"
-            }
-        } catch (e: Exception) {
-            "12 Months"
-        }
-    }
-//    override fun onPurchases(orderId: String, str: String) {
-//        BaseSharedPreferences(mActivity).mIS_SUBSCRIBED=true
-//    }
 
 }

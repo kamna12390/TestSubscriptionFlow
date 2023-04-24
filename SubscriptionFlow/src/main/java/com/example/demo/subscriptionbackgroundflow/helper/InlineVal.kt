@@ -2,10 +2,12 @@
 
 package com.example.demo.subscriptionbackgroundflow.helper
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Rect
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -14,11 +16,18 @@ import android.text.Editable
 import android.text.Html
 import android.text.Spanned
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.updateLayoutParams
 import kotlin.math.roundToInt
 
 /**
@@ -135,7 +144,131 @@ inline val View.enable: View
         isEnabled = true
         return this
     }
+private fun View.onGlobalLayout(callback: () -> Unit) {
+    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        override fun onGlobalLayout() {
+            viewTreeObserver.removeOnGlobalLayoutListener(this)
+            callback()
+        }
+    })
+}
+enum class IconPosition {
+    LEFT, RIGHT
+}
+@RequiresApi(Build.VERSION_CODES.P)
+fun Context.setCloseIconPosition(fParentLayout: ConstraintLayout, fCloseIcon: ImageView, fIconPosition: IconPosition) {
+    fParentLayout.setOnApplyWindowInsetsListener { _, insets ->
+        insets.displayCutout?.let { cutout ->
+            val cutOutRect: Rect = cutout.boundingRects[0]
+//                logE("setCloseIconPosition", "cutOutRect::->$cutOutRect")
+            fCloseIcon.let { closeIcon ->
+                closeIcon.onGlobalLayout {
+                    val closeIconRect = Rect()
+                    closeIcon.getGlobalVisibleRect(closeIconRect)
+//                        logE("setCloseIconPosition", "closeIconRect::->$closeIconRect")
+//                        logE("setCloseIconPosition", "----------------------------------------")
+//                        logE("setCloseIconPosition", "----------------------------------------")
+//                        logE("setCloseIconPosition", "cutOut contains close::->${cutOutRect.contains(closeIconRect)}")
+//                        logE("setCloseIconPosition", "cutOut contains close right::->${cutOutRect.contains(closeIconRect.right, closeIconRect.top)}")
+//                        logE("setCloseIconPosition", "cutOut contains close left::->${cutOutRect.contains(closeIconRect.left, closeIconRect.bottom)}")
+//                        logE("setCloseIconPosition", "cutOut contains close top::->${cutOutRect.contains(closeIconRect.left, closeIconRect.top)}")
+//                        logE("setCloseIconPosition", "cutOut contains close bottom::->${cutOutRect.contains(closeIconRect.right, closeIconRect.bottom)}")
+//                        logE("setCloseIconPosition", "----------------------------------------")
+//                        logE("setCloseIconPosition", "----------------------------------------")
+//                        logE("setCloseIconPosition", "close contains cutOut::->${closeIconRect.contains(cutOutRect)}")
+//                        logE("setCloseIconPosition", "close contains cutOut right::->${closeIconRect.contains(cutOutRect.right, cutOutRect.top)}")
+//                        logE("setCloseIconPosition", "close contains cutOut left::->${closeIconRect.contains(cutOutRect.left, cutOutRect.bottom)}")
+//                        logE("setCloseIconPosition", "close contains cutOut top::->${closeIconRect.contains(cutOutRect.left, cutOutRect.top)}")
+//                        logE("setCloseIconPosition", "close contains cutOut bottom::->${closeIconRect.contains(cutOutRect.right, cutOutRect.bottom)}")
+                    if (closeIconRect.contains(cutOutRect)
+                        || closeIconRect.contains(cutOutRect.right, cutOutRect.top)
+                        || closeIconRect.contains(cutOutRect.left, cutOutRect.bottom)
+                        || closeIconRect.contains(cutOutRect.left, cutOutRect.top)
+                        || closeIconRect.contains(cutOutRect.right, cutOutRect.bottom)
+                        || cutOutRect.contains(closeIconRect)
+                        || cutOutRect.contains(closeIconRect.right, closeIconRect.top)
+                        || cutOutRect.contains(closeIconRect.left, closeIconRect.bottom)
+                        || cutOutRect.contains(closeIconRect.left, closeIconRect.top)
+                        || cutOutRect.contains(closeIconRect.right, closeIconRect.bottom)
+                    ) {
+                        closeIcon.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                            when (fIconPosition) {
+                                IconPosition.LEFT -> {
+                                    startToStart = ConstraintSet.PARENT_ID
+                                    endToEnd = ConstraintSet.UNSET
+                                }
+                                IconPosition.RIGHT -> {
+                                    endToEnd = ConstraintSet.PARENT_ID
+                                    startToStart = ConstraintSet.UNSET
+                                    marginEnd = resources.getDimension(com.intuit.sdp.R.dimen._10sdp).roundToInt()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return@setOnApplyWindowInsetsListener insets
+    }
+}
+ fun getSubTrial(trial: String): String? {
+    return try {
+        val size = trial.length
+        val period = trial.substring(1, size - 1)
+        val str = trial.substring(size - 1, size)
+        when (str) {
+            "D" -> "$period days"
+            "W" -> {
+                try {
+                    if (period.toInt() == 1) "7 days" else "$period Week"
+                } catch (e: Exception) {
+                    "$period Week"
+                }
+            }
+            "M" -> "$period Months"
+            "Y" -> "${period.toInt() * 12} Months"
+            else -> "$period Months"
+        }
+    } catch (e: Exception) {
+        "12 Months"
+    }
+}
 
+
+fun getMonthBaseYearlyDiscount(
+    monthPrice: String,
+    yearPrice: String,
+    onDiscountCalculated: (yearlyDiscountPercentage: Double, yearlyMonthBaseDiscountPrice: String) -> Unit
+) {
+    monthPrice.getPriceInDouble.let { lMonthNumber ->
+        yearPrice.getPriceInDouble.let { lYearNumber ->
+            val lMonthPrize: Double = (lMonthNumber * 12) - lYearNumber
+            val lYearPrizeBaseOfMonth = (lMonthNumber * 12)
+            var lDiscountPercentage: Double = (lMonthPrize / lYearPrizeBaseOfMonth) * 100
+
+            lDiscountPercentage *= 100
+            lDiscountPercentage = lDiscountPercentage.toInt().toDouble()
+            lDiscountPercentage /= 100
+
+            val lDiscountPrice = monthPrice.replace(
+                String.format("%.2f", lMonthNumber),
+                String.format("%.2f", (lYearNumber / 12)),
+                false
+            )
+
+            onDiscountCalculated.invoke(lDiscountPercentage, lDiscountPrice)
+        }
+    }
+}
+
+private val String.getPriceInDouble: Double
+    get() {
+        return if (this.isNotEmpty() && !(this.equals("Not Found", ignoreCase = false))) {
+            this.replace("""[^0-9.]""".toRegex(), "").toDouble()
+        } else {
+            0.0
+        }
+    }
 /**
  * Remove the view (View.setEnable(false))
  */

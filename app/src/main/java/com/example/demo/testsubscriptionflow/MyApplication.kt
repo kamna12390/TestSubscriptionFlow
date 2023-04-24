@@ -92,6 +92,7 @@ class MyApplication : AppSubscription(), LifecycleObserver,
             .setPremium_Button_Icon(this.resources.getDrawable(R.drawable.bg_sub_btn_))
             .setNew_NativeAdsLayout(R.layout.layout_native_ads)
             .setOld_NativeAdsLayout(R.layout.layout_native_ads_old)
+            .setIsRevenuCat(false)
             .Subcall()
         appOpenManager = AppOpenManager(this)
 
