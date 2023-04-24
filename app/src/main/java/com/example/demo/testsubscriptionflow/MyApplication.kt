@@ -76,6 +76,7 @@ class MyApplication : AppSubscription(), LifecycleObserver,
             .setBASIC_SKU("subscribe_monthly_imagecrop")
             .setPREMIUM_SKU("subscribe_yearly_imagecrop")
             .setPREMIUM_SIX_SKU("subscribe_weekly_imagecrop")
+            .setIsRevenuCat(false)
             .setPurchase_ID("goog_IuztdnsvmYVjRXaHMiaDmiyOOmN")
             .setIsDebugMode(true)
             .setListOfLine(mPremiumLine)
@@ -83,7 +84,6 @@ class MyApplication : AppSubscription(), LifecycleObserver,
             .setDefaultPackagList(mPackagerenList)
             .setAppName(this.resources.getString(R.string.app_name))
             .setAppIcon(this.resources.getDrawable(R.drawable.ic_app_icon))
-//            .setGreen_True_Icon(this.resources.getDrawable(R.drawable.ic_true_icon))
             .setPremium_True_Icon(this.resources.getDrawable(R.drawable.ic_select_trail))
             .setBasic_Line_Icon(this.resources.getDrawable(R.drawable.ic_line_lock))
             .setClose_Icon(this.resources.getDrawable(R.drawable.close_icon))
@@ -92,7 +92,6 @@ class MyApplication : AppSubscription(), LifecycleObserver,
             .setPremium_Button_Icon(this.resources.getDrawable(R.drawable.bg_sub_btn_))
             .setNew_NativeAdsLayout(R.layout.layout_native_ads)
             .setOld_NativeAdsLayout(R.layout.layout_native_ads_old)
-            .setIsRevenuCat(false)
             .Subcall()
         appOpenManager = AppOpenManager(this)
 
