@@ -35,6 +35,8 @@ class SplashScreenActivity : SubSplashBaseActivity() {
         sku: String,
         orderId: String
     ) {
+        Log.d(TAG, "registerPurchases: --=$isSubscribe")
+        BaseSharedPreferences(this).mIS_SUBSCRIBED=isSubscribe
     }
 
     private fun createTimer(seconds: Long) {

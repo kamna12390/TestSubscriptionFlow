@@ -201,6 +201,7 @@ class BillingClientLifecycle private constructor(
                 Log.i(TAG, "queryPurchases: null purchase list")
                 processPurchases(null)
             } else {
+                Log.i(TAG, "queryPurchases:  else null purchase list")
                 processPurchases(result.purchasesList)
             }
         }
