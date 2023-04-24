@@ -24,22 +24,22 @@
             android:name=".activity.TermsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeSubscription"/>
-        <activity
-            android:name=".myadslibrary.ui.MoreAppActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/moreAppTheme" />
-        <activity
-            android:name=".myadslibrary.ui.MoreAppActivityNew"
-            android:screenOrientation="portrait"
-            android:theme="@style/moreAppTheme" />
+<!--        <activity-->
+<!--            android:name=".myadslibrary.ui.MoreAppActivity"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:theme="@style/moreAppTheme" />-->
+<!--        <activity-->
+<!--            android:name=".myadslibrary.ui.MoreAppActivityNew"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:theme="@style/moreAppTheme" />-->
 
         <activity
             android:name=".myadslibrary.ui.AdActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".myadslibrary.ui.NewMoreAppActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/moreAppTheme"/>
+<!--        <activity-->
+<!--            android:name=".myadslibrary.ui.NewMoreAppActivity"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:theme="@style/moreAppTheme"/>-->
 
         <receiver android:exported="true"
             android:name=".myadslibrary.receiver.NetworkChangeReceiver">
