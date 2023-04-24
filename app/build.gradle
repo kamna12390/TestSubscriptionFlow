@@ -9,6 +9,7 @@ android {
     defaultConfig {
         applicationId "com.example.demo.testsubscriptionflow"
 //        applicationId "com.crop.photo.image.resize.cut.tools"
+//        applicationId "djmixer.sound.effects.musicmixplayer"
         minSdk 19
         targetSdk 33
         versionCode 1

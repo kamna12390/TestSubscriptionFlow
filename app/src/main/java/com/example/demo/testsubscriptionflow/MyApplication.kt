@@ -73,9 +73,12 @@ class MyApplication : AppSubscription(), LifecycleObserver,
         )
         SubscriptionClass.ActivityBuilder(this)
             .Adsliber(AppID,ProcessLifecycleOwner.get())
-            .setBASIC_SKU("subscribe_monthly_imagecrop")
-            .setPREMIUM_SKU("subscribe_yearly_imagecrop")
-            .setPREMIUM_SIX_SKU("subscribe_weekly_imagecrop")
+//            .setBASIC_SKU("subscribe_monthly_imagecrop")
+//            .setPREMIUM_SKU("subscribe_yearly_imagecrop")
+//            .setPREMIUM_SIX_SKU("subscribe_weekly_imagecrop")
+            .setBASIC_SKU("subscribe_monthly_djmixer")
+            .setPREMIUM_SKU("subscribe_yearly_djmixer")
+            .setPREMIUM_SIX_SKU("subscribe_monthly_djmixer")
             .setIsRevenuCat(false)
             .setPurchase_ID("goog_IuztdnsvmYVjRXaHMiaDmiyOOmN")
             .setIsDebugMode(true)
@@ -107,6 +110,7 @@ class MyApplication : AppSubscription(), LifecycleObserver,
         }
 
     }
+
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onAppForegrounded() {
