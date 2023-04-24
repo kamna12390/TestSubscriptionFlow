@@ -119,7 +119,7 @@ class BillingClientLifecycle private constructor(
      * This is an asynchronous call that will receive a result in [onSkuDetailsResponse].
      */
     fun querySkuDetails() {
-        Log.d(TAG, "querySkuDetails")
+        Log.d(TAG, "querySkuDetails--${Constants.PREMIUM_SIX_SKU}--${Constants.BASIC_SKU}--${Constants.PREMIUM_SKU}")
         val params = SkuDetailsParams.newBuilder()
             .setType(BillingClient.SkuType.SUBS)
             .setSkusList(
