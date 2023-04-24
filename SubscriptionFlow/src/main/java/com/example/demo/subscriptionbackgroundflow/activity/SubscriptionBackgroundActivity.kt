@@ -52,6 +52,7 @@ class SubscriptionBackgroundActivity : BaseSubscriptionActivity() {
             }
 
         })
+
         mNextIntent = intent.getStringExtra("mNextActivityIntent")
         if (BaseSharedPreferences(this).mOpenAdsload!!) {
             AppOpenManager(applicationContext)
@@ -63,6 +64,7 @@ class SubscriptionBackgroundActivity : BaseSubscriptionActivity() {
 
     override fun onPurchases(orderId: String, str: String) {
         BaseSharedPreferences(this).mIS_SUBSCRIBED = true
+        showBackPress()
     }
     @SuppressLint("SetTextI18n")
 
@@ -130,7 +132,12 @@ class SubscriptionBackgroundActivity : BaseSubscriptionActivity() {
 
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        if (BaseSharedPreferences(this).mIS_SUBSCRIBED!!){
+            onBackPressed()
+        }
+    }
 
     override fun onBackPressed() {
 

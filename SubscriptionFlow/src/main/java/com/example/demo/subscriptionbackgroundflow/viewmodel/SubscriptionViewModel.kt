@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModel
 import com.example.demo.subscriptionbackgroundflow.activity.PrivacyActivity
 import com.example.demo.subscriptionbackgroundflow.activity.SubscriptionActivity.Companion.plans
 import com.example.demo.subscriptionbackgroundflow.activity.TermsActivity
+import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
 import com.example.demo.subscriptionbackgroundflow.constants.Constants
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.BASIC_SKU
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.PREMIUM_SKU
@@ -376,7 +377,6 @@ class SubscriptionViewModel(
                 } else {
                     mActivity.showToast("Please check internet connection.", android.widget.Toast.LENGTH_SHORT)
                 }
-
             }
         }
     }

@@ -97,7 +97,7 @@ abstract class BaseActivity : AppCompatActivity() {
                     }
                 } else {}
             } else {
-                isoutApp = false
+
             }
         }
 

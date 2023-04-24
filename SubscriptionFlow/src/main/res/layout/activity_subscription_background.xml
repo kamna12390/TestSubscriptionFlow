@@ -154,10 +154,10 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:src="@drawable/ic_true_icon_test"
                         app:layout_constraintBottom_toTopOf="@+id/img_true_two"
-                        app:layout_constraintHeight_percent="0.06"
+                        app:layout_constraintHeight_percent="0.09"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txt_premium"
-                        app:layout_constraintWidth_percent="0.06" />
+                        app:layout_constraintWidth_percent="0.09" />
 
                     <TextView
                         android:id="@+id/txt_one"
@@ -202,10 +202,10 @@
                         android:layout_height="0dp"
                         android:src="@drawable/ic_true_icon_test"
                         app:layout_constraintBottom_toTopOf="@+id/img_true_three"
-                        app:layout_constraintHeight_percent="0.06"
+                        app:layout_constraintHeight_percent="0.09"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/img_true_one"
-                        app:layout_constraintWidth_percent="0.06" />
+                        app:layout_constraintWidth_percent="0.09" />
 
                     <TextView
                         android:id="@+id/txt_two"
@@ -250,10 +250,10 @@
                         android:layout_height="0dp"
                         android:src="@drawable/ic_true_icon_test"
                         app:layout_constraintBottom_toTopOf="@+id/img_true_four"
-                        app:layout_constraintHeight_percent="0.06"
+                        app:layout_constraintHeight_percent="0.09"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/img_true_two"
-                        app:layout_constraintWidth_percent="0.06" />
+                        app:layout_constraintWidth_percent="0.09" />
 
                     <TextView
                         android:id="@+id/txt_three"
@@ -298,10 +298,10 @@
                         android:layout_height="0dp"
                         android:src="@drawable/ic_true_icon_test"
                         app:layout_constraintBottom_toTopOf="@+id/img_true_five"
-                        app:layout_constraintHeight_percent="0.06"
+                        app:layout_constraintHeight_percent="0.09"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/img_true_three"
-                        app:layout_constraintWidth_percent="0.06" />
+                        app:layout_constraintWidth_percent="0.09" />
 
                     <TextView
                         android:id="@+id/txt_four"
@@ -346,10 +346,10 @@
                         android:layout_height="0dp"
                         android:src="@drawable/ic_true_icon_test"
                         app:layout_constraintBottom_toTopOf="@+id/img_true_six"
-                        app:layout_constraintHeight_percent="0.06"
+                        app:layout_constraintHeight_percent="0.09"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/img_true_four"
-                        app:layout_constraintWidth_percent="0.06" />
+                        app:layout_constraintWidth_percent="0.09" />
 
                     <TextView
                         android:id="@+id/txt_five"
@@ -394,10 +394,10 @@
                         android:layout_height="0dp"
                         android:src="@drawable/ic_true_icon_test"
                         app:layout_constraintBottom_toTopOf="@+id/img_true_seven"
-                        app:layout_constraintHeight_percent="0.06"
+                        app:layout_constraintHeight_percent="0.09"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/img_true_five"
-                        app:layout_constraintWidth_percent="0.06" />
+                        app:layout_constraintWidth_percent="0.09" />
 
                     <TextView
                         android:id="@+id/txt_six"
@@ -442,10 +442,10 @@
                         android:layout_height="0dp"
                         android:src="@drawable/ic_true_icon_test"
                         app:layout_constraintBottom_toTopOf="@+id/img_true_eight"
-                        app:layout_constraintHeight_percent="0.06"
+                        app:layout_constraintHeight_percent="0.09"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/img_true_six"
-                        app:layout_constraintWidth_percent="0.06" />
+                        app:layout_constraintWidth_percent="0.09" />
 
                     <TextView
                         android:id="@+id/txt_seven"
@@ -490,10 +490,10 @@
                         android:layout_height="0dp"
                         android:src="@drawable/ic_true_icon_test"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintHeight_percent="0.06"
+                        app:layout_constraintHeight_percent="0.09"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/img_true_seven"
-                        app:layout_constraintWidth_percent="0.06" />
+                        app:layout_constraintWidth_percent="0.09" />
 
                     <TextView
                         android:id="@+id/txt_eight"

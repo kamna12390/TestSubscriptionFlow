@@ -79,6 +79,7 @@ class SubscriptionActivity : BaseSubscriptionActivity() {
 
     override fun onPurchases(orderId: String, str: String) {
         BaseSharedPreferences(this).mIS_SUBSCRIBED = true
+        onBackPressed()
     }
 
     override fun onBackPressed() {

@@ -110,6 +110,7 @@ class MyApplication : AppSubscription(), LifecycleObserver,
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onAppForegrounded() {
+
         val am: ActivityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val cn: ComponentName? = am.getRunningTasks(1)[0].topActivity
         if (!BaseSharedPreferences(this).mIS_SUBSCRIBED!!) {
@@ -129,6 +130,7 @@ class MyApplication : AppSubscription(), LifecycleObserver,
 
         }
         SubscriptionClass.ActivityBuilder(this).let {
+            isoutApp = false
             it.setActivityOpen(false, this)
         }
     }
