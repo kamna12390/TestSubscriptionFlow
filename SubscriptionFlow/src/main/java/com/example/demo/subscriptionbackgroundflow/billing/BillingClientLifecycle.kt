@@ -191,7 +191,7 @@ class BillingClientLifecycle private constructor(
         if (!billingClient.isReady) {
             Log.e(TAG, "queryPurchases: BillingClient is not ready")
         }
-        Log.d(TAG, "queryPurchases: SUBS")
+        Log.d(TAG, "queryPurchases: SUBS is")
         val result = billingClient.queryPurchases(BillingClient.SkuType.SUBS)
         if (result == null) {
             Log.i(TAG, "queryPurchases: null purchase result")
