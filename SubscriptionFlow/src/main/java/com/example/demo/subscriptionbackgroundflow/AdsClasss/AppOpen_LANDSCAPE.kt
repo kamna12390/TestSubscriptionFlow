@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AppOpen_LANDSCAPE(var myApplication: Context) {
-    val TAG = "AppOpenManager"
+    val TAG = "AppOpen_LANDSCAPE"
     val TAG1 = "ShowAppOpenAd"
 
     companion object {

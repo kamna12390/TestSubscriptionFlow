@@ -82,7 +82,7 @@ class MyApplication : AppSubscription(), LifecycleObserver,
             .setIsRevenuCat(false)
             .setPurchase_ID("goog_IuztdnsvmYVjRXaHMiaDmiyOOmN")
             .setIsDebugMode(true)
-            .setIsTestMode(true)
+            .setIsTestMode(false)
             .setListOfLine(mPremiumLine)
             .setMainScreenListOfLine(mPremiumScreenLine)
             .setDefaultPackagList(mPackagerenList)

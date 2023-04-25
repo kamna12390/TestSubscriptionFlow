@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.demo.subscriptionbackgroundflow.activity.SubscriptionBackgroundActivity
 import com.example.demo.subscriptionbackgroundflow.constants.Constants
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.IsOutAppPermission
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.isActivitychange
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isAdsShowing
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isoutApp
 import com.example.demo.subscriptionbackgroundflow.helper.logD
@@ -31,7 +32,7 @@ abstract class BaseActivity : AppCompatActivity() {
                         "mActivityOpen->$mActivityOpen \n isoutApp->$isoutApp \n mFirstTimeApp->$mFirstTimeApp \n mOneDay->$mOneDay \n" +
                         "mTwoDay->$mTwoDay"
             )
-            if (!mIS_SUBSCRIBED!! && !isAdsShowing && !IsOutAppPermission && mActivityOpen!! && !isoutApp!!) {
+            if (!mIS_SUBSCRIBED!! && !isAdsShowing && !IsOutAppPermission && mActivityOpen!! && !isoutApp!! && !isActivitychange!!) {
                 val intent = Intent(
                     mActivity,
                     SubscriptionBackgroundActivity::class.java
@@ -97,7 +98,7 @@ abstract class BaseActivity : AppCompatActivity() {
                     }
                 } else {}
             } else {
-
+                isActivitychange=false
             }
         }
 

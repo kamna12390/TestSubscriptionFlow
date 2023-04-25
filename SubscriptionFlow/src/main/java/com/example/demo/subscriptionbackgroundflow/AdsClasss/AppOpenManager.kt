@@ -129,22 +129,40 @@ class AppOpenManager(var myApplication: Context) {
             ) {
                 if (!isAdsShowing && isAdAvailable()) {
                     isAdsShowing = true
+                    logD(
+                        TAG1,
+                        "NextActivity :Show Ads One--${isAdAvailable()}--${
+                            mOpenAdsShow!!
+                        }"
+                    )
                     appOpenAd!!.show(activity)
                 } else {
                     onShowAdCompleteListener.onShowAdComplete()
                 }
             } else {
                 if (!isAdsShowing && isAdAvailable() && mFirstTimeApp > 4 && isoutApp != true) {
+                    logD(
+                        TAG1,
+                        "NextActivity :Show Ads Two--${isAdAvailable()}--${
+                            mOpenAdsShow!!
+                        }"
+                    )
                     isAdsShowing = true
                     appOpenAd!!.show(activity)
                 } else {
                     logD(
                         TAG1,
-                        "NextActivity :Can not show ad.11--${isAdAvailable()}--${
+                        "NextActivity :Show Ads Three--${isAdAvailable()}--${
                             mOpenAdsShow!!
                         }"
                     )
                     if (isAdAvailable() && mOpenAdsShow!!) {
+                        logD(
+                            TAG1,
+                            "NextActivity :Show Ads Four--${isAdAvailable()}--${
+                                mOpenAdsShow!!
+                            }"
+                        )
                         isAdsShowing = true
                         appOpenAd!!.show(activity)
                     } else {

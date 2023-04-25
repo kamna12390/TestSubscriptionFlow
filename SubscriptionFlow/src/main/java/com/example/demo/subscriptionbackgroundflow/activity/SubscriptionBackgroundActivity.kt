@@ -177,7 +177,7 @@ class SubscriptionBackgroundActivity : BaseSubscriptionActivity() {
     }
 
     fun NextActivity() {
-        Constants.isoutApp=true
+        Constants.isActivitychange=true
         startActivity(Intent(this, Class.forName(mNextIntent)))
 //        finish()
     }
@@ -202,16 +202,8 @@ class SubscriptionBackgroundActivity : BaseSubscriptionActivity() {
     }
 
     private fun showBackPress() {
-        Constants.isoutApp=true
-//        mProgressBar!!.dismiss()
-
-//        try {
-//        mActivity.let {
+        Constants.isActivitychange=true
         super.onBackPressed()
-//        }
-//        } catch (e: Exception) {
-//
-//        }
 
     }
 }

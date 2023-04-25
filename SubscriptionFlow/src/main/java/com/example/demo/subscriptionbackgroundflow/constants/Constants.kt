@@ -18,6 +18,7 @@ object Constants {
     internal var isDebugMode: Boolean = false
     internal var isTestMode: Boolean = false
     var isoutApp: Boolean? = false
+    var isActivitychange: Boolean? = false
     var unNativeAd: NativeAd? = null
     var IsOutAppPermission:Boolean=false
     var isAdsShowing: Boolean = false
