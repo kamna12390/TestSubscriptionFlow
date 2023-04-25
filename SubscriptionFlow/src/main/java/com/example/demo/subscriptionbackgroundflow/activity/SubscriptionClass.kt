@@ -12,6 +12,7 @@ import com.example.demo.subscriptionbackgroundflow.constants.Constants.PREMIUM_S
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.PREMIUM_SKU
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.Purchase_ID
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isDebugMode
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.isTestMode
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isoutApp
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mAppIcon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mAppName
@@ -175,6 +176,10 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.App
 
         fun setIsDebugMode(boolean: Boolean): Builder {
             isDebugMode = boolean
+            return this
+        }
+        fun setIsTestMode(boolean: Boolean): Builder {
+            isTestMode = boolean
             return this
         }
 

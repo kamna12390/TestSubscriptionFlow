@@ -7,6 +7,9 @@ import android.widget.*
 import androidx.appcompat.widget.AppCompatTextView
 import com.example.demo.subscriptionbackgroundflow.helper.isOnline
 import com.example.demo.subscriptionbackgroundflow.R
+import com.example.demo.subscriptionbackgroundflow.constants.Constants
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.isDebugMode
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.isTestMode
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isoutApp
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mNew_NativeAdsLayout
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mOld_NativeAdsLayout
@@ -24,12 +27,14 @@ class NativeAds {
 
     var isSend = false
     fun loadNativeAds(context: Context, Adx:Boolean?=false, fAdContainer: FrameLayout,ifNativeNewLayout:Boolean, listener: (Int) -> Unit) {
-        var s =if (Adx==true){
-//            "ca-app-pub-3940256099942544/2247696110"
-            AppIDs.instnace?.getGoogleAdxNative()
-        }else{
-//            "ca-app-pub-3940256099942544/2247696110"
-            AppIDs.instnace?.getGoogleNative()
+        var s = if (isTestMode) {
+            "ca-app-pub-3940256099942544/2247696110"
+        } else {
+            if (Adx == true) {
+                AppIDs.instnace?.getGoogleAdxNative() ?: ""
+            } else {
+                AppIDs.instnace?.getGoogleNative() ?: ""
+            }
         }
         logD(TAG, "MEDIUM_RECTANGLE  NativeID ->$s")
         if (isSend){

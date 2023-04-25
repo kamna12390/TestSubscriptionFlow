@@ -5,7 +5,9 @@ import android.content.Context
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
+import com.example.demo.subscriptionbackgroundflow.constants.Constants
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isAdsShowing
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.isTestMode
 import com.example.demo.subscriptionbackgroundflow.helper.logD
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
@@ -52,16 +54,17 @@ class RewardedAds {
             return
         }
 
-
-        val s = if (Adx == true){
-//            "ca-app-pub-3940256099942544/5224354917"
-            AppIDs.instnace?.getGoogleAdxRewardVideo() ?: ""
-        }else{
-//            "ca-app-pub-3940256099942544/5224354917"
-            AppIDs.instnace?.getGoogleRewardVideo() ?: ""
+        var s = if (isTestMode) {
+            "ca-app-pub-3940256099942544/5224354917"
+        } else {
+            if (Adx == true) {
+                AppIDs.instnace?.getGoogleAdxRewardVideo() ?: ""
+            } else {
+                AppIDs.instnace?.getGoogleRewardVideo() ?: ""
+            }
         }
+    
         logD(TAG, "MEDIUM_RECTANGLE  RewardedID ->$s")
-//        val s = "ca-app-pub-3940256099942544/5224354917"
 
 
 

@@ -63,7 +63,6 @@ class SubscriptionBackgroundActivityViewModel(
     }
     fun initListener() {
         binding.ivClose.click {
-
             isSelecterdPlan.monBackPress()
         }
         binding.mCLUnlockLayout.click {

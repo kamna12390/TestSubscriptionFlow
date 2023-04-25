@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import com.example.demo.subscriptionbackgroundflow.helper.isOnline
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
+import com.example.demo.subscriptionbackgroundflow.constants.Constants
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isAdsShowing
 import com.example.demo.subscriptionbackgroundflow.helper.logD
 import com.google.android.gms.ads.AdError
@@ -42,13 +43,14 @@ class InterstitialAds {
         if (BaseSharedPreferences(context).mIS_SUBSCRIBED!! || !context.isOnline) {
             return
         }
-
-        var s = if (Adx == true) {
-//            "ca-app-pub-3940256099942544/1033173712"
-            AppIDs.instnace?.getGoogleAdxInterstitial() ?: ""
+        var s = if (Constants.isTestMode) {
+            "ca-app-pub-3940256099942544/1033173712"
         } else {
-//            "ca-app-pub-3940256099942544/1033173712"
-            AppIDs.instnace?.getGoogleInterstitial() ?: ""
+            if (Adx == true) {
+                AppIDs.instnace?.getGoogleAdxInterstitial() ?: ""
+            } else {
+                AppIDs.instnace?.getGoogleInterstitial() ?: ""
+            }
         }
         logD(TAG, "MEDIUM_RECTANGLE  InterstitialID ->$s")
         isSend=true

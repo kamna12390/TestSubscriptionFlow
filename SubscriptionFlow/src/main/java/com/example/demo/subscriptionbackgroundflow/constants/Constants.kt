@@ -16,6 +16,7 @@ object Constants {
     var Purchase_ID = ""
 
     internal var isDebugMode: Boolean = false
+    internal var isTestMode: Boolean = false
     var isoutApp: Boolean? = false
     var unNativeAd: NativeAd? = null
     var IsOutAppPermission:Boolean=false

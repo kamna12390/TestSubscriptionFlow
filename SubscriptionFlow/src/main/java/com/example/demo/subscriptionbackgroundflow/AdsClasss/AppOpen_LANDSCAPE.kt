@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isAdsShowing
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.isTestMode
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isoutApp
 import com.example.demo.subscriptionbackgroundflow.helper.logD
 import com.google.android.gms.ads.AdError
@@ -35,19 +36,20 @@ class AppOpen_LANDSCAPE(var myApplication: Context) {
             return
         }
         with(BaseSharedPreferences(context)) {
-            if (!mOpenAdsload!!){
-               return
+            if (!mOpenAdsload!!) {
+                return
             }
 
         }
-        
-        var s = if (Adx) {
-//            "ca-app-pub-3940256099942544/3419835294"
-            AppIDs.instnace?.getAdxOpenAds() ?: ""
-        }
-        else {
-//            "ca-app-pub-3940256099942544/3419835294"
-            AppIDs.instnace?.getGoogleOpenAds() ?: ""
+
+        var s = if (isTestMode) {
+            "ca-app-pub-3940256099942544/3419835294"
+        } else {
+            if (Adx) {
+                AppIDs.instnace?.getAdxOpenAds() ?: ""
+            } else {
+                AppIDs.instnace?.getGoogleOpenAds() ?: ""
+            }
         }
         logD(TAG, "MEDIUM_RECTANGLE  AppOpen_LANDSCAPE ->$s")
         isSend = true
@@ -67,6 +69,7 @@ class AppOpen_LANDSCAPE(var myApplication: Context) {
                         logD(TAG, "MEDIUM_RECTANGLE onAdLoaded: AppOpen_LANDSCAPE ->AdMob ")
                     }
                 }
+
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                     isSend = false
                     appOpenAd = null
@@ -91,7 +94,10 @@ class AppOpen_LANDSCAPE(var myApplication: Context) {
             logD(TAG1, "The app open ad is already showing.")
             return
         }
-        logD(TAG1, "NextActivity :Can not show ad.22--${isAdAvailable()}--${activity.javaClass.simpleName}")
+        logD(
+            TAG1,
+            "NextActivity :Can not show ad.22--${isAdAvailable()}--${activity.javaClass.simpleName}"
+        )
         if (!isAdAvailable()) {
             logD(TAG1, "The app open ad is not ready yet.")
             onShowAdCompleteListener.onShowAdComplete()
@@ -108,6 +114,7 @@ class AppOpen_LANDSCAPE(var myApplication: Context) {
                 onShowAdCompleteListener.onShowAdComplete()
 
             }
+
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                 appOpenAd = null
                 isAdsShowing = false
@@ -116,6 +123,7 @@ class AppOpen_LANDSCAPE(var myApplication: Context) {
                 onShowAdCompleteListener.onShowAdComplete()
 
             }
+
             override fun onAdShowedFullScreenContent() {
                 logD(TAG1, "onAdShowedFullScreenContent.")
             }

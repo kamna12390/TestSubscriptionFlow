@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
+import com.example.demo.subscriptionbackgroundflow.constants.Constants
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isAdsShowing
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.isTestMode
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isoutApp
 import com.example.demo.subscriptionbackgroundflow.helper.logD
 import com.google.android.gms.ads.AdError
@@ -40,14 +42,16 @@ class AppOpenManager(var myApplication: Context) {
             }
 
         }
-        
-        var s = if (Adx) {
-//            "ca-app-pub-3940256099942544/3419835294"
-            AppIDs.instnace?.getAdxOpenAds() ?: ""
-        }
-        else {
-//            "ca-app-pub-3940256099942544/3419835294"
-            AppIDs.instnace?.getGoogleOpenAds() ?: ""
+
+
+        var s = if (isTestMode) {
+            "ca-app-pub-3940256099942544/3419835294"
+        } else {
+            if (Adx) {
+                AppIDs.instnace?.getAdxOpenAds() ?: ""
+            } else {
+                AppIDs.instnace?.getGoogleOpenAds() ?: ""
+            }
         }
         logD(TAG, "MEDIUM_RECTANGLE  AppOpenID ->$s")
         isSend = true
