@@ -125,7 +125,11 @@ class SubscriptionBackgroundActivityViewModel(
                                 txtUnlockKriadl.text = "Continue"
                             } else {
                                 textPrice.text =
-                                    "${
+                                    "${trial[Constants.PREMIUM_SIX_SKU]?.let { it1 ->
+                                        com.example.demo.subscriptionbackgroundflow.helper.getSubTrial(
+                                            it1
+                                        )
+                                    }} FREE trial, then ${
                                         price[Constants.PREMIUM_SIX_SKU]?.replace(
                                             ".00",
                                             ""
