@@ -2,18 +2,12 @@ package com.example.demo.subscriptionbackgroundflow.viewmodel
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Rect
 import android.os.Build
 import android.util.Log
 import android.view.View
-import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.demo.subscriptionbackgroundflow.activity.PrivacyActivity
@@ -30,8 +24,6 @@ import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremium_
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.packagerenlist
 import com.example.demo.subscriptionbackgroundflow.databinding.ActivitySubscriptionBinding
 import com.example.demo.subscriptionbackgroundflow.helper.*
-import kotlinx.android.synthetic.main.activity_subscription.*
-import kotlin.math.roundToInt
 
 
 class SubscriptionViewModel(
@@ -42,6 +34,7 @@ class SubscriptionViewModel(
     var isSelecterdPlan: IsSelecterdPlan,
 
 ) : ViewModel() {
+    @SuppressLint("AnnotateVersionCheck")
     fun isPiePlus() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
     val idname = arrayOf("_one", "_two", "_three", "_four", "_five", "_six", "_seven", "_eight")
 
@@ -213,11 +206,10 @@ class SubscriptionViewModel(
                     trial[PREMIUM_SKU]?.let {
                         if (it == "") {
                             Log.d("TAG", "onCreate:11111--->Continue  ")
-                            txtUnlockKriadl?.text = "Continue"
+                            txtUnlockKriadl.text = "Continue"
                         } else {
-                            txtMonthBottom?.visibility=View.GONE
                             Log.d("TAG", "onCreate:11111--->start free trial  ")
-                            txtUnlockKriadl?.text = "start free trial"
+                            txtUnlockKriadl.text = "start free trial"
                         }
                     }
 
