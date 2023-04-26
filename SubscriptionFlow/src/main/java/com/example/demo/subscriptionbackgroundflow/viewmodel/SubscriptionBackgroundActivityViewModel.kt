@@ -8,15 +8,10 @@ import android.os.Build
 import android.os.Handler
 import android.util.Log
 import android.view.View
-import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ChecksSdkIntAtLeast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.demo.subscriptionbackgroundflow.AdsClasss.InterstitialAds
@@ -29,7 +24,6 @@ import com.example.demo.subscriptionbackgroundflow.constants.Constants.mBasic_Li
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mClose_Icon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mIsRevenuCat
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremiumLine
-import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremium_Button_Icon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremium_True_Icon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.packagerenlist
 import com.example.demo.subscriptionbackgroundflow.databinding.ActivitySubscriptionBackgroundBinding
@@ -124,6 +118,8 @@ class SubscriptionBackgroundActivityViewModel(
                                 }/Month."
                                 txtUnlockKriadl.text = "Continue"
                             } else {
+
+
                                 textPrice.text =
                                     " ${
                                         price[Constants.PREMIUM_SIX_SKU]?.replace(
