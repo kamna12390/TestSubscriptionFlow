@@ -140,7 +140,7 @@ class AppOpenManager(var myApplication: Context) {
                     onShowAdCompleteListener.onShowAdComplete()
                 }
             } else {
-                if (!isAdsShowing && isAdAvailable() && mFirstTimeApp > 4 && isoutApp != true) {
+                if (!isAdsShowing && isAdAvailable() && mFirstTimeApp > 4 && isoutApp != true  ) {
                     logD(
                         TAG1,
                         "NextActivity :Show Ads Two--${isAdAvailable()}--${

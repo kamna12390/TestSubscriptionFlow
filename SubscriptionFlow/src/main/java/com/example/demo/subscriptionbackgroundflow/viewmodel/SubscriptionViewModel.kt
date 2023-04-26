@@ -60,6 +60,7 @@ class SubscriptionViewModel(
         initListener()
     }
 
+    @SuppressLint("SetTextI18n")
     fun setSubScriptionUI(){
         with(binding) {
             if (mIsRevenuCat!!){
@@ -214,6 +215,7 @@ class SubscriptionViewModel(
                             Log.d("TAG", "onCreate:11111--->Continue  ")
                             txtUnlockKriadl?.text = "Continue"
                         } else {
+                            txtMonthBottom?.visibility=View.GONE
                             Log.d("TAG", "onCreate:11111--->start free trial  ")
                             txtUnlockKriadl?.text = "start free trial"
                         }
