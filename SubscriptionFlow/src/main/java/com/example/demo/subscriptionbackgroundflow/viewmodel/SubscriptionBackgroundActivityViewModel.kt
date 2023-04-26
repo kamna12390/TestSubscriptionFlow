@@ -124,7 +124,6 @@ class SubscriptionBackgroundActivityViewModel(
                                 }/Month."
                                 txtUnlockKriadl.text = "Continue"
                             } else {
-
                                 textPrice.text =
                                     " ${
                                         price[Constants.PREMIUM_SIX_SKU]?.replace(
