@@ -7,6 +7,8 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import com.crop.photo.image.resize.cut.tools.subscripction.AdsManager
+import com.crop.photo.image.resize.cut.tools.subscripction.ProductPurchaseHelper
 import com.example.demo.subscriptionbackgroundflow.helper.isOnline
 import com.example.demo.subscriptionbackgroundflow.AdsClasss.AppOpenManager
 import com.example.demo.subscriptionbackgroundflow.activity.SubscriptionBackgroundActivity
@@ -16,7 +18,7 @@ import com.example.demo.subscriptionbackgroundflow.ui.SubSplashBaseActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SplashScreenActivity : SubSplashBaseActivity() {
+class SplashScreenActivity : SubSplashBaseActivity(), ProductPurchaseHelper.ProductPurchaseListener {
     private val COUNTER_TIME = 5L
     private var mcountRemaining: Long = 0L
     val TAG: String = javaClass.simpleName
@@ -25,7 +27,7 @@ class SplashScreenActivity : SubSplashBaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
         appOpenManager = AppOpenManager(applicationContext)
-
+        ProductPurchaseHelper.initBillingClient(this, this)
         createTimer(COUNTER_TIME)
     }
 
@@ -188,5 +190,25 @@ class SplashScreenActivity : SubSplashBaseActivity() {
                 startActivity(Intent(this, MainActivity::class.java))
             }
         }, 100)
+    }
+
+    override fun onPurchasedSuccess(purchase: com.android.billingclient.api.Purchase) {
+
+    }
+
+    override fun onProductAlreadyOwn() {
+
+    }
+
+    override fun onBillingSetupFinished(billingResult: com.android.billingclient.api.BillingResult) {
+        ProductPurchaseHelper.initProductsKeys(this) {
+            val sub = !AdsManager(this).isNeedToShowAds()
+            BaseSharedPreferences(this).mIS_SUBSCRIBED=sub
+        }
+
+    }
+
+    override fun onBillingKeyNotFound(productId: String) {
+
     }
 }

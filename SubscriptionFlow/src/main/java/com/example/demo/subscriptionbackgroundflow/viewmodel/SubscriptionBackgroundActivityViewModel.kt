@@ -19,21 +19,24 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.crop.photo.image.resize.cut.tools.subscripction.ProductPurchaseHelper.getProductInfo
 import com.example.demo.subscriptionbackgroundflow.AdsClasss.InterstitialAds
 import com.example.demo.subscriptionbackgroundflow.activity.SubscriptionActivity
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
 import com.example.demo.subscriptionbackgroundflow.constants.Constants
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.PREMIUM_SIX_SKU
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mAppIcon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mAppName
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mBasic_Line_Icon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mClose_Icon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mIsRevenuCat
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremiumLine
-import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremium_Button_Icon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mPremium_True_Icon
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.packagerenlist
 import com.example.demo.subscriptionbackgroundflow.databinding.ActivitySubscriptionBackgroundBinding
 import com.example.demo.subscriptionbackgroundflow.helper.*
+import com.example.demo.subscriptionbackgroundflow.manager.PreferencesKeys
+import com.example.demo.subscriptionbackgroundflow.manager.SubscriptionManager
 import kotlin.math.roundToInt
 
 class SubscriptionBackgroundActivityViewModel(
@@ -41,11 +44,13 @@ class SubscriptionBackgroundActivityViewModel(
     var  mActivity: AppCompatActivity,
     var liveDataPeriod: MutableLiveData<HashMap<String, String>>,
     var liveDataPrice: MutableLiveData<HashMap<String, String>>,
+    var subscriptionManager: SubscriptionManager,
     var isSelecterdPlan: IsSelecterdPlan
 ) : ViewModel() {
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.P)
     fun isPiePlus() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
     val idname = arrayOf("_one", "_two", "_three","_four","_five","_six","_seven","_eight")
+    val TAG =mActivity.javaClass.simpleName
     interface IsSelecterdPlan {
         fun monMonthPlan()
         fun monYearPlan()
@@ -96,8 +101,7 @@ class SubscriptionBackgroundActivityViewModel(
                 )
             }
             txtAppname.text=mAppName
-
-            if (mIsRevenuCat!!){
+                if (mIsRevenuCat!!){
                 Handler().postDelayed(Runnable {
                     packagerenlist?.get(0)?.freeTrialPeriod?.let { it1 ->
                         val size = it1.length
@@ -114,10 +118,13 @@ class SubscriptionBackgroundActivityViewModel(
             }else{
                 liveDataPeriod.observe(mActivity) { trial ->
                     liveDataPrice.observe(mActivity) { price ->
-                        trial[Constants.PREMIUM_SIX_SKU]?.let {
-                            if (it == "") {
+
+//                        logD(TAG," onCreate: liveDataPeriod->$trial\nliveDataPrice->$price\n trial->${subscriptionManager.getString(PreferencesKeys.MONTH_TRIAL_PERIOD,"")}")
+                        PREMIUM_SIX_SKU.getProductInfo?.let { month ->
+
+                            if (month.freeTrialPeriod.equals("Not Found", true)) {
                                 textPrice.text = "${
-                                    price[Constants.PREMIUM_SIX_SKU]?.replace(
+                                    price[PREMIUM_SIX_SKU]?.replace(
                                         ".00",
                                         ""
                                     )
@@ -125,12 +132,12 @@ class SubscriptionBackgroundActivityViewModel(
                                 txtUnlockKriadl.text = "Continue"
                             } else {
                                 textPrice.text =
-                                    "${trial[Constants.PREMIUM_SIX_SKU]?.let { it1 ->
-                                        com.example.demo.subscriptionbackgroundflow.helper.getSubTrial(
-                                            it1
+                                    "${
+                                        getSubTrial(
+                                            subscriptionManager.getString(PreferencesKeys.MONTH_TRIAL_PERIOD,"")
                                         )
-                                    }} FREE trial, then ${
-                                        price[Constants.PREMIUM_SIX_SKU]?.replace(
+                                    } FREE trial, then ${
+                                        price[PREMIUM_SIX_SKU]?.replace(
                                             ".00",
                                             ""
                                         )
@@ -138,12 +145,9 @@ class SubscriptionBackgroundActivityViewModel(
                                 txtUnlockKriadl.text = "start free trial"
                             }
                         }
-
-
                     }
                 }
             }
-
         }
     }
     fun setLineView(){

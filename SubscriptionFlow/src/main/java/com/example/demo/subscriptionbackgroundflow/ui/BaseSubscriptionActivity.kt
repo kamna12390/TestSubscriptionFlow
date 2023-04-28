@@ -45,10 +45,11 @@ abstract class BaseSubscriptionActivity : AppCompatActivity() {
         mPriceMapMicro[Constants.PREMIUM_SIX_SKU] = subscriptionManager.getLong(PreferencesKeys.YSIX_PRICE_MICRO,100000000)
         mPriceMapMicro[Constants.BASIC_SKU] = subscriptionManager.getLong(PreferencesKeys.MONTH_PRICE_MICRO,249000000)
         mPriceMapMicro[Constants.PREMIUM_SKU] = subscriptionManager.getLong(PreferencesKeys.YEAR_PRICE_MICRO,1999000000)
-
-        mTrialPeriod[Constants.BASIC_SKU] = subscriptionManager.getString(PreferencesKeys.MONTH_TRIAL_PERIOD,"P3D")
-        mTrialPeriod[Constants.PREMIUM_SKU] = subscriptionManager.getString(PreferencesKeys.YEAR_TRIAL_PERIOD,"P3D")
-        mTrialPeriod[Constants.PREMIUM_SIX_SKU] = subscriptionManager.getString(PreferencesKeys.SIX_TRIAL_PERIOD,"P3D")
+//        Log.d(TAG, "onCreate:111 ${Constants.BASIC_SKU}--${subscriptionManager.getString(PreferencesKeys.MONTH_TRIAL_PERIOD,"")}")
+        mTrialPeriod[Constants.BASIC_SKU] = subscriptionManager.getString(PreferencesKeys.MONTH_TRIAL_PERIOD,"")
+        mTrialPeriod[Constants.PREMIUM_SKU] = subscriptionManager.getString(PreferencesKeys.YEAR_TRIAL_PERIOD,"")
+        mTrialPeriod[Constants.PREMIUM_SIX_SKU] = subscriptionManager.getString(PreferencesKeys.SIX_TRIAL_PERIOD,"")
+//        mTrialPeriod[Constants.PREMIUM_SIX_SKU] = subscriptionManager.getString(PreferencesKeys.SIX_TRIAL_PERIOD,"P1D")
         currencyCode.postValue(subscriptionManager.getString(PreferencesKeys.CURRENCY_CODE,"INR"))
         liveDataPrice.postValue(mPriceMap)
         liveDataPriceMicro.postValue(mPriceMapMicro)
@@ -100,19 +101,25 @@ abstract class BaseSubscriptionActivity : AppCompatActivity() {
             it.forEach {
                 val sku: SkuDetails = it.value
                 if (sku.sku == Constants.BASIC_SKU) {
+//                    Log.d(TAG, "onCreate:11 ${Constants.BASIC_SKU}--${sku.freeTrialPeriod}")
                     subscriptionManager.setMonthPrice(sku.price)
                     subscriptionManager.setMonthPrice(sku.priceAmountMicros)
                     subscriptionManager.setMonthTrialPeriod(sku.freeTrialPeriod)
+//                    subscriptionManager.setMonthTrialPeriod("")
                     subscriptionManager.setCurrencyCode(sku.priceCurrencyCode)
                 } else if (sku.sku == Constants.PREMIUM_SKU) {
+//                    Log.d(TAG, "onCreate:22 ${Constants.PREMIUM_SKU}")
                     subscriptionManager.setYearPrice(sku.price)
                     subscriptionManager.setYearPrice(sku.priceAmountMicros)
                     subscriptionManager.setYearTrialPeriod(sku.freeTrialPeriod)
+//                    subscriptionManager.setYearTrialPeriod("")
                     subscriptionManager.setCurrencyCode(sku.priceCurrencyCode)
                 } else if (sku.sku == Constants.PREMIUM_SIX_SKU) {
+//                    Log.d(TAG, "onCreate:33 ${Constants.PREMIUM_SIX_SKU}")
                     subscriptionManager.setSixMonthrPrice(sku.price)
                     subscriptionManager.setSixPrice(sku.priceAmountMicros)
                     subscriptionManager.setSixTrialPeriod(sku.freeTrialPeriod)
+//                    subscriptionManager.setSixTrialPeriod("")
                     subscriptionManager.setCurrencyCode(sku.priceCurrencyCode)
                 }
             }

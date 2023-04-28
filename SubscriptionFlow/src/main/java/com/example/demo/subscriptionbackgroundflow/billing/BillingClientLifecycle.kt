@@ -128,11 +128,49 @@ class BillingClientLifecycle private constructor(
                     Constants.BASIC_SKU,
                     Constants.PREMIUM_SKU
                 )
-            )
-            .build()
-        params?.let { skuDetailsParams ->
+            ).build()
+        params.let { skuDetailsParams ->
             Log.i(TAG, "querySkuDetailsAsync")
             billingClient.querySkuDetailsAsync(skuDetailsParams, this)
+//            billingClient.queryPurchasesAsync(QueryPurchasesParams.newBuilder()
+//                .setProductType(BillingClient.ProductType.SUBS)
+//                .build()
+//            ) { billingResult, purchases ->
+//
+//                val responseCode = billingResult.responseCode
+//                val debugMessage = billingResult.debugMessage
+//                when (responseCode) {
+//                    BillingClient.BillingResponseCode.OK -> {
+//                        Log.i(TAG, "onSkuDetailsResponse: $responseCode $debugMessage")
+//                        if (purchases == null) {
+//                            Log.w(TAG, "onSkuDetailsResponse: null SkuDetails list")
+//                            skusWithSkuDetails.postValue(emptyMap())
+//                        } else
+//                            skusWithSkuDetails.postValue(HashMap<String, SkuDetails>().apply {
+//                                for (details in purchases) {
+//                                    put(details.sku, details)
+//                                }
+//                            }.also { postedValue ->
+//                                Log.i(TAG, "onSkuDetailsResponse: count ${postedValue.size}")
+//                            })
+//                    }
+//                    BillingClient.BillingResponseCode.SERVICE_DISCONNECTED,
+//                    BillingClient.BillingResponseCode.SERVICE_UNAVAILABLE,
+//                    BillingClient.BillingResponseCode.BILLING_UNAVAILABLE,
+//                    BillingClient.BillingResponseCode.ITEM_UNAVAILABLE,
+//                    BillingClient.BillingResponseCode.DEVELOPER_ERROR,
+//                    BillingClient.BillingResponseCode.ERROR -> {
+//                        Log.e(TAG, "onSkuDetailsResponse: $responseCode $debugMessage")
+//                    }
+//                    BillingClient.BillingResponseCode.USER_CANCELED,
+//                    BillingClient.BillingResponseCode.FEATURE_NOT_SUPPORTED,
+//                    BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED,
+//                    BillingClient.BillingResponseCode.ITEM_NOT_OWNED -> {
+//                        // These response codes are not expected.
+//                        Log.wtf(TAG, "onSkuDetailsResponse: $responseCode $debugMessage")
+//                    }
+//                }
+//            }
         }
     }
 
@@ -191,20 +229,34 @@ class BillingClientLifecycle private constructor(
         if (!billingClient.isReady) {
             Log.e(TAG, "queryPurchases: BillingClient is not ready")
         }
-        Log.d(TAG, "queryPurchases: SUBS is--${billingClient.queryPurchases(BillingClient.SkuType.SUBS)}")
-        val result = billingClient.queryPurchases(BillingClient.SkuType.SUBS)
-        if (result == null) {
-            Log.i(TAG, "queryPurchases: null purchase result")
-            processPurchases(null)
-        } else {
-            if (result.purchasesList == null) {
-                Log.i(TAG, "queryPurchases: null purchase list")
-                processPurchases(null)
+        Log.d(TAG, "queryPurchases: SUBS is")
+//        Log.d(TAG, "queryPurchases: SUBS is--${billingClient.queryPurchases(BillingClient.SkuType.SUBS)}")
+//        val result = billingClient.queryPurchases(BillingClient.SkuType.SUBS)
+        billingClient.queryPurchasesAsync(QueryPurchasesParams.newBuilder()
+            .setProductType(BillingClient.ProductType.SUBS)
+            .build()
+        ) { billingResult, purchases ->
+            Log.i(TAG, "queryPurchases: --")
+            if ( purchases.size>0) {
+                Log.i(TAG, "queryPurchases: --${purchases[0].packageName}")
+                processPurchases(purchases)
             } else {
-                Log.i(TAG, "queryPurchases:  else null purchase list")
-                processPurchases(result.purchasesList)
+                processPurchases(null)
+                Log.i(TAG, "queryPurchases: null purchase result")
             }
         }
+//        if (result == null) {
+//            Log.i(TAG, "queryPurchases: null purchase result")
+//            processPurchases(null)
+//        } else {
+//            if (result.purchasesList == null) {
+//                Log.i(TAG, "queryPurchases: null purchase list")
+//                processPurchases(null)
+//            } else {
+//                Log.i(TAG, "queryPurchases:  else null purchase list")
+//                processPurchases(result.purchasesList)
+//            }
+//        }
     }
 
     /**

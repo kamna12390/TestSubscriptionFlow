@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.lifecycle.LifecycleOwner
+import com.crop.photo.image.resize.cut.tools.subscripction.ProductPurchaseHelper.setSubscriptionKey
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
 import com.example.demo.subscriptionbackgroundflow.constants.Constants
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.BASIC_SKU
@@ -89,6 +90,8 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.App
 
                     }
                 }
+            }else{
+                setSubscriptionKey(BASIC_SKU, PREMIUM_SIX_SKU, PREMIUM_SKU)
             }
             return this
         }
@@ -98,6 +101,7 @@ import com.example.demo.subscriptionbackgroundflow.myadslibrary.kotlin.appid.App
 //            Toast.makeText(activity,"mAdsAppID->$int---$isDebugMode",Toast.LENGTH_LONG).show()
             Helper().startDataSync(activity, life)
             AppIDs.init(activity, int, false)
+
             logD(
                 "SubscriptionList",
                 "=->${packagerenlist?.toString()}"

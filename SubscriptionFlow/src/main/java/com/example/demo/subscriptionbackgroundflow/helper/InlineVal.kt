@@ -233,8 +233,6 @@ fun Context.setCloseIconPosition(fParentLayout: ConstraintLayout, fCloseIcon: Im
         "12 Months"
     }
 }
-
-
 fun getMonthBaseYearlyDiscount(
     monthPrice: String,
     yearPrice: String,

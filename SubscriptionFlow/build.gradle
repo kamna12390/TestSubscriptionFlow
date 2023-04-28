@@ -45,11 +45,11 @@ android {
         viewBinding = true
     }
 
-//    externalNativeBuild {
-//        cmake {
-//            path file('src/main/cpp/CMakeLists.txt')
-//        }
-//    }
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+        }
+    }
 }
 
 dependencies {
@@ -63,8 +63,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     //Billing
-    def billing_version = "4.0.0"
-    implementation "com.android.billingclient:billing:$billing_version"
+//    def billing_version = "4.0.0"
+    implementation "com.android.billingclient:billing-ktx:5.0.0"
+//    def billing_version = "5.0.0"
+//    implementation "com.android.billingclient:billing:$billing_version"
     implementation "org.jetbrains.anko:anko:0.10.8"
 
 

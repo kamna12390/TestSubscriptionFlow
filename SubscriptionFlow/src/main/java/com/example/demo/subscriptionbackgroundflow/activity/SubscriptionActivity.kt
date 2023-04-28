@@ -7,6 +7,9 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
+import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.Purchase
+import com.crop.photo.image.resize.cut.tools.subscripction.ProductPurchaseHelper
 import com.example.demo.subscriptionbackgroundflow.R
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
 import com.example.demo.subscriptionbackgroundflow.constants.Constants
@@ -17,7 +20,7 @@ import com.example.demo.subscriptionbackgroundflow.helper.*
 import com.example.demo.subscriptionbackgroundflow.ui.BaseSubscriptionActivity
 import com.example.demo.subscriptionbackgroundflow.viewmodel.SubscriptionViewModel
 
-class SubscriptionActivity : BaseSubscriptionActivity() {
+class SubscriptionActivity : BaseSubscriptionActivity() , ProductPurchaseHelper.ProductPurchaseListener{
     lateinit var binding: ActivitySubscriptionBinding
 
     companion object {
@@ -31,7 +34,7 @@ class SubscriptionActivity : BaseSubscriptionActivity() {
 
         logD("DeviceHeightAndWeight", "height==${mHEIGHT}===weight==${mWIDTH}")
         binding = DataBindingUtil.setContentView(this, R.layout.activity_subscription)
-        binding.viewmodel = SubscriptionViewModel(binding, this,liveDataPeriod,liveDataPrice,object :SubscriptionViewModel.IsSelecterdPlan{
+        binding.viewmodel = SubscriptionViewModel(binding, this,liveDataPeriod,liveDataPrice,subscriptionManager,object :SubscriptionViewModel.IsSelecterdPlan{
             override fun monMonthPlan() {
                 onMonthPlan()
             }
@@ -116,5 +119,23 @@ class SubscriptionActivity : BaseSubscriptionActivity() {
         }
 //        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
 
+    }
+
+    override fun onPurchasedSuccess(purchase: Purchase) {
+        BaseSharedPreferences(this).mIS_SUBSCRIBED = true
+        onBackPressed()
+    }
+
+    override fun onProductAlreadyOwn() {
+        BaseSharedPreferences(this).mIS_SUBSCRIBED = true
+        onBackPressed()
+    }
+
+    override fun onBillingSetupFinished(billingResult: BillingResult) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onBillingKeyNotFound(productId: String) {
+        TODO("Not yet implemented")
     }
 }

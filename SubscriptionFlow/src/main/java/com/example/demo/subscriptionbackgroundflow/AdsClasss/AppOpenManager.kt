@@ -40,6 +40,9 @@ class AppOpenManager(var myApplication: Context) {
             if (!mOpenAdsload!!){
                return
             }
+            if (mIS_SUBSCRIBED!!){
+                return
+            }
 
         }
 

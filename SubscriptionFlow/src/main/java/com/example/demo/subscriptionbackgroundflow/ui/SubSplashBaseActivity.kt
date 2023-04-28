@@ -55,16 +55,22 @@ abstract class SubSplashBaseActivity : AppCompatActivity() {
         mBillingViewModel.skusWithSkuDetails.observe(this, Observer {
             it.forEach {
                 val sku: SkuDetails = it.value
-                Log.d(TAG, "onCreate: $sku")
+                Log.d(TAG, "PlanRespone: $sku")
                 if (sku.sku == Constants.BASIC_SKU) {
+//                    Log.d(TAG, "onCreate:1 ${Constants.BASIC_SKU}")
                     subscriptionManager.setMonthPrice(sku.price)
                     subscriptionManager.setCurrencyCode(sku.priceCurrencyCode)
+//                    subscriptionManager.setMonthTrialPeriod(sku.freeTrialPeriod)
                 } else if (sku.sku == Constants.PREMIUM_SKU) {
+//                    Log.d(TAG, "onCreate:2 ${Constants.PREMIUM_SKU}")
                     subscriptionManager.setYearPrice(sku.price)
                     subscriptionManager.setCurrencyCode(sku.priceCurrencyCode)
+//                    subscriptionManager.setYearTrialPeriod(sku.freeTrialPeriod)
                 }else if (sku.sku == Constants.PREMIUM_SIX_SKU) {
+//                    Log.d(TAG, "onCreate:3 ${Constants.PREMIUM_SIX_SKU}")
                     subscriptionManager.setSixMonthrPrice(sku.price)
                     subscriptionManager.setCurrencyCode(sku.priceCurrencyCode)
+//                    subscriptionManager.setSixTrialPeriod(sku.freeTrialPeriod)
                 }
 
             }

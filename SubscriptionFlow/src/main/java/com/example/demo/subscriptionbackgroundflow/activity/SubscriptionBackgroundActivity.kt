@@ -17,12 +17,14 @@ import com.example.demo.subscriptionbackgroundflow.AdsClasss.InterstitialAds
 import com.example.demo.subscriptionbackgroundflow.R
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
 import com.example.demo.subscriptionbackgroundflow.constants.Constants
+import com.example.demo.subscriptionbackgroundflow.constants.Constants.BASIC_SKU
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.PREMIUM_SIX_SKU
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mHEIGHT
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mIsRevenuCat
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.mWIDTH
 import com.example.demo.subscriptionbackgroundflow.databinding.ActivitySubscriptionBackgroundBinding
 import com.example.demo.subscriptionbackgroundflow.helper.*
+import com.example.demo.subscriptionbackgroundflow.manager.PreferencesKeys
 import com.example.demo.subscriptionbackgroundflow.ui.BaseSubscriptionActivity
 import com.example.demo.subscriptionbackgroundflow.viewmodel.SubscriptionBackgroundActivityViewModel
 import com.example.demo.subscriptionbackgroundflow.viewmodel.SubscriptionViewModel
@@ -38,7 +40,7 @@ class SubscriptionBackgroundActivity : BaseSubscriptionActivity() {
         super.onCreate(savedInstanceState)
         hideSystemUI()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_subscription_background)
-        binding.viewmodel = SubscriptionBackgroundActivityViewModel(binding, this,liveDataPeriod,liveDataPrice,object :SubscriptionBackgroundActivityViewModel.IsSelecterdPlan{
+        binding.viewmodel = SubscriptionBackgroundActivityViewModel(binding, this,liveDataPeriod,liveDataPrice,subscriptionManager,object :SubscriptionBackgroundActivityViewModel.IsSelecterdPlan{
             override fun monMonthPlan() {
                 onMonthPlan()
             }
@@ -52,7 +54,6 @@ class SubscriptionBackgroundActivity : BaseSubscriptionActivity() {
             }
 
         })
-
         mNextIntent = intent.getStringExtra("mNextActivityIntent")
         if (BaseSharedPreferences(this).mOpenAdsload!!) {
             AppOpenManager(applicationContext)

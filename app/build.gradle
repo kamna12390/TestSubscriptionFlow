@@ -65,6 +65,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:20.2.0'
     //Work Manager dependency
     implementation 'androidx.work:work-runtime:2.7.1'
+    implementation "com.android.billingclient:billing-ktx:5.0.0"
 
 
 }
