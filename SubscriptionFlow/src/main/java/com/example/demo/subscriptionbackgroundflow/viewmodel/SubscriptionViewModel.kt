@@ -29,7 +29,7 @@ import com.example.demo.subscriptionbackgroundflow.manager.PreferencesKeys
 import com.example.demo.subscriptionbackgroundflow.manager.SubscriptionManager
 
 
-class SubscriptionViewModel(
+class SubscriptionViewModel (
     var binding: ActivitySubscriptionBinding,
     var mActivity: AppCompatActivity,
     var liveDataPeriod: MutableLiveData<HashMap<String, String>>,
