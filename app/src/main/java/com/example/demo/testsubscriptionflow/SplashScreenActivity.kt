@@ -1,14 +1,13 @@
 package com.example.demo.testsubscriptionflow
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import com.crop.photo.image.resize.cut.tools.subscripction.AdsManager
-import com.crop.photo.image.resize.cut.tools.subscripction.ProductPurchaseHelper
+import com.example.demo.subscriptionbackgroundflow.subscripction.ProductPurchaseHelper
 import com.example.demo.subscriptionbackgroundflow.helper.isOnline
 import com.example.demo.subscriptionbackgroundflow.AdsClasss.AppOpenManager
 import com.example.demo.subscriptionbackgroundflow.activity.SubscriptionBackgroundActivity
@@ -26,6 +25,7 @@ class SplashScreenActivity : SubSplashBaseActivity(), ProductPurchaseHelper.Prod
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
+        Log.d(TAG, "Application Context Null")
         appOpenManager = AppOpenManager(applicationContext)
         ProductPurchaseHelper.initBillingClient(this, this)
         createTimer(COUNTER_TIME)

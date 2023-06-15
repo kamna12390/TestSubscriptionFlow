@@ -45,9 +45,14 @@ class MyApplication : AppSubscription(), LifecycleObserver,
             sku = "subscribe_yearly_imagecrop_3999"
         )
     )
+//    val AppID=892
     val AppID=7
     var appOpenManager: AppOpenManager? = null
+    val PREMIUM_SIX_SKU = "subscribe_monthly_imagecrop"
 
+    val BASIC_SKU = "subscribe_monthly_imagecrop"
+
+    val PREMIUM_SKU = "subscribe_yearly_imagecrop"
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate() {
@@ -73,14 +78,14 @@ class MyApplication : AppSubscription(), LifecycleObserver,
         )
         SubscriptionClass.ActivityBuilder(this)
             .Adsliber(AppID,ProcessLifecycleOwner.get())
-//            .setBASIC_SKU("subscribe_monthly_imagecrop")
-//            .setPREMIUM_SKU("subscribe_yearly_imagecrop")
-//            .setPREMIUM_SIX_SKU("subscribe_weekly_imagecrop")
             .setBASIC_SKU("subscribe_monthly_djmixer")
             .setPREMIUM_SKU("subscribe_yearly_djmixer")
             .setPREMIUM_SIX_SKU("subscribe_monthly_djmixer")
+//            .setBASIC_SKU(BASIC_SKU)
+//            .setPREMIUM_SKU(PREMIUM_SKU)
+//            .setPREMIUM_SIX_SKU(PREMIUM_SIX_SKU)
             .setIsRevenuCat(false)
-            .setPurchase_ID("goog_IuztdnsvmYVjRXaHMiaDmiyOOmN")
+            .setPurchase_ID("goog_IvcEUSwmDPbXkcYQpLvPKAhtbfO")
             .setIsDebugMode(true)
             .setIsTestMode(false)
             .setListOfLine(mPremiumLine)

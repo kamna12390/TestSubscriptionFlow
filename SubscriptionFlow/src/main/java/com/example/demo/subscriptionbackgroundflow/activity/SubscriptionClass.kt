@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.lifecycle.LifecycleOwner
-import com.crop.photo.image.resize.cut.tools.subscripction.ProductPurchaseHelper.setSubscriptionKey
+import com.example.demo.subscriptionbackgroundflow.subscripction.ProductPurchaseHelper.setSubscriptionKey
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
 import com.example.demo.subscriptionbackgroundflow.constants.Constants
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.BASIC_SKU

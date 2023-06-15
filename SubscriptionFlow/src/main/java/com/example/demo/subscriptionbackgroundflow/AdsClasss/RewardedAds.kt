@@ -71,7 +71,7 @@ class RewardedAds {
         isSend=true
         RewardedAd.load(context,s, AdRequest.Builder().build(), object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
-                logD(TAG, adError?.message)
+                logD(TAG, adError?.message!!)
                 isSend=false
                 rewardedAd = null
                 if (Adx == true){

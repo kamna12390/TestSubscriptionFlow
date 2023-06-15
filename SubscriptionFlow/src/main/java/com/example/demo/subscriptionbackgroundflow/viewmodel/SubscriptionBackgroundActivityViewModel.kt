@@ -3,23 +3,17 @@ package com.example.demo.subscriptionbackgroundflow.viewmodel
 //import com.example.demo.subscriptionbackgroundflow.MyApplication.Companion.packagerenlist
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Rect
 import android.os.Build
 import android.os.Handler
 import android.util.Log
 import android.view.View
-import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ChecksSdkIntAtLeast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.crop.photo.image.resize.cut.tools.subscripction.ProductPurchaseHelper.getProductInfo
+import com.example.demo.subscriptionbackgroundflow.subscripction.ProductPurchaseHelper.getProductInfo
 import com.example.demo.subscriptionbackgroundflow.AdsClasss.InterstitialAds
 import com.example.demo.subscriptionbackgroundflow.activity.SubscriptionActivity
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
@@ -37,7 +31,6 @@ import com.example.demo.subscriptionbackgroundflow.databinding.ActivitySubscript
 import com.example.demo.subscriptionbackgroundflow.helper.*
 import com.example.demo.subscriptionbackgroundflow.manager.PreferencesKeys
 import com.example.demo.subscriptionbackgroundflow.manager.SubscriptionManager
-import kotlin.math.roundToInt
 
 class SubscriptionBackgroundActivityViewModel(
     var binding: ActivitySubscriptionBackgroundBinding,

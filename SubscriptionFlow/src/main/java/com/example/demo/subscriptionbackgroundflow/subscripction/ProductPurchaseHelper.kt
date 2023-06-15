@@ -1,4 +1,4 @@
-package com.crop.photo.image.resize.cut.tools.subscripction
+package com.example.demo.subscriptionbackgroundflow.subscripction
 
 import android.app.Activity
 import android.content.Context
@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.annotation.Keep
 import androidx.annotation.NonNull
 import com.android.billingclient.api.*
+import com.crop.photo.image.resize.cut.tools.subscripction.AdsManager
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
 import com.example.demo.subscriptionbackgroundflow.helper.logE
 import com.example.demo.subscriptionbackgroundflow.helper.logI

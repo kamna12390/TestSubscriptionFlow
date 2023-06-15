@@ -10,11 +10,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.crop.photo.image.resize.cut.tools.subscripction.ProductPurchaseHelper.getProductInfo
+import com.example.demo.subscriptionbackgroundflow.subscripction.ProductPurchaseHelper.getProductInfo
 import com.example.demo.subscriptionbackgroundflow.activity.PrivacyActivity
 import com.example.demo.subscriptionbackgroundflow.activity.SubscriptionActivity.Companion.plans
 import com.example.demo.subscriptionbackgroundflow.activity.TermsActivity
-import com.example.demo.subscriptionbackgroundflow.basemodule.BaseSharedPreferences
 import com.example.demo.subscriptionbackgroundflow.constants.Constants
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.PREMIUM_SIX_SKU
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.PREMIUM_SKU
