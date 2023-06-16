@@ -94,6 +94,7 @@ class SubscriptionBackgroundActivityViewModel(
                 )
             }
             txtAppname.text=mAppName
+            logD(TAG,"Month SUB--call->$mIsRevenuCat")
                 if (mIsRevenuCat!!){
                 Handler().postDelayed(Runnable {
                     packagerenlist?.get(0)?.freeTrialPeriod?.let { it1 ->
@@ -109,12 +110,13 @@ class SubscriptionBackgroundActivityViewModel(
                     }
                 }, 200)
             }else{
-                liveDataPeriod.observe(mActivity) { trial ->
-                    liveDataPrice.observe(mActivity) { price ->
+                    logD(TAG,"Month SUB--call")
 
+                    liveDataPrice.observe(mActivity) { price ->
+                        logD(TAG,"Month SUB--call 2")
 //                        logD(TAG," onCreate: liveDataPeriod->$trial\nliveDataPrice->$price\n trial->${subscriptionManager.getString(PreferencesKeys.MONTH_TRIAL_PERIOD,"")}")
                         PREMIUM_SIX_SKU.getProductInfo?.let { month ->
-                            logD(TAG,"--Month SUB--${month.freeTrialPeriod}")
+                            logD(TAG,"Month SUB--${month.freeTrialPeriod}")
                             if (month.freeTrialPeriod.equals("Not Found", true)) {
                                 textPrice.text = "${
                                     price[PREMIUM_SIX_SKU]?.replace(
@@ -139,7 +141,6 @@ class SubscriptionBackgroundActivityViewModel(
                             }
                         }
                     }
-                }
             }
         }
     }
