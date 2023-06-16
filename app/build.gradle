@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     namespace 'com.example.demo.testsubscriptionflow'
@@ -8,6 +8,10 @@ android {
 
     defaultConfig {
         applicationId "com.example.demo.testsubscriptionflow"
+//        applicationId "com.crop.photo.image.resize.cut.tools"
+//        applicationId "com.image.scan.text"
+//        applicationId "com.background.eraser.remover.photo.layers.editor"
+//        applicationId "djmixer.sound.effects.musicmixplayer"
         minSdk 19
         targetSdk 33
         versionCode 1
@@ -22,19 +26,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug{
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-        }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = '17'
-    }
+
+//    kotlinOptions {
+//        jvmTarget = '1.8'
+//    }
     dataBinding {
         //noinspection DataBindingWithoutKapt
         enabled = true
@@ -45,28 +45,21 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.10.1'
+//    implementation 'androidx.core:core-ktx:1.4.0'
 
-
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test:runner:1.5.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation project(path: ':SubscriptionFlow')
 //    implementation project(path: ':myadslibrary')
 //    //Revenucat
 //    implementation 'com.revenuecat.purchases:purchases:5.4.0'
-
-
-    //livedata
-    def lifecycle_version = "2.6.1"
-
-    // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
-
+    // ViewModel and LiveData
+    def lifecycle_version = '2.2.0'
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation 'androidx.multidex:multidex:2.0.1'
     //lottie Animation Library
     implementation 'com.airbnb.android:lottie:6.0.0'
