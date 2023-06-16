@@ -218,7 +218,7 @@
                 android:layout_marginRight="@dimen/_4sdp"
                 android:padding="@dimen/_4sdp"
                 android:src="@drawable/ic_share_test"
-                android:visibility="visible"
+                android:visibility="invisible"
                 app:tint="@android:color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

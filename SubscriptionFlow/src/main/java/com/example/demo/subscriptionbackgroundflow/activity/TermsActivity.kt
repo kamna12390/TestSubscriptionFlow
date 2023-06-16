@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.demo.subscriptionbackgroundflow.R
 import com.example.demo.subscriptionbackgroundflow.basemodule.BaseActivity
+import com.example.demo.subscriptionbackgroundflow.constants.Constants
 import com.example.demo.subscriptionbackgroundflow.constants.Constants.isoutApp
 
 class TermsActivity : BaseActivity() {
@@ -30,7 +31,7 @@ class TermsActivity : BaseActivity() {
         isoutApp=true
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "BG CutOut")
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, Constants.mAppName)
         var shareMessage = "\nGo with BackGround CutOut and Make Someone's day very special....\n\n"
         shareMessage += "https://play.google.com/store/apps/details?id=${packageName}"
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
